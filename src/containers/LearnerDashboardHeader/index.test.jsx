@@ -1,6 +1,6 @@
 import { mergeConfig } from '@edx/frontend-platform';
 import { shallow } from '@edx/react-unit-test-utils';
-import Header from '@edx/frontend-component-header';
+import { RobboHeader } from 'robbo-layout';
 
 import urls from 'data/services/lms/urls';
 import LearnerDashboardHeader from '.';
@@ -19,7 +19,6 @@ jest.mock('./hooks', () => ({
 }));
 jest.mock('containers/MasqueradeBar', () => 'MasqueradeBar');
 jest.mock('./ConfirmEmailBanner', () => 'ConfirmEmailBanner');
-jest.mock('@edx/frontend-component-header', () => 'Header');
 
 describe('LearnerDashboardHeader', () => {
   test('render', () => {
@@ -28,20 +27,20 @@ describe('LearnerDashboardHeader', () => {
     expect(wrapper.snapshot).toMatchSnapshot();
     expect(wrapper.instance.findByType('ConfirmEmailBanner')).toHaveLength(1);
     expect(wrapper.instance.findByType('MasqueradeBar')).toHaveLength(1);
-    expect(wrapper.instance.findByType(Header)).toHaveLength(1);
-    wrapper.instance.findByType(Header)[0].props.mainMenuItems[1].onClick();
+    expect(wrapper.instance.findByType(RobboHeader)).toHaveLength(1);
+    wrapper.instance.findByType(RobboHeader)[0].props.onCatalogClick();
     expect(findCoursesNavClicked).toHaveBeenCalledWith(urls.baseAppUrl('/course-search-url'));
-    expect(wrapper.instance.findByType(Header)[0].props.secondaryMenuItems.length).toBe(0);
+    expect(wrapper.instance.findByType(RobboHeader)[0].props.activeSection).toBe('dashboard');
   });
 
   test('should display Help link if SUPPORT_URL is set', () => {
     mergeConfig({ SUPPORT_URL: 'http://localhost:18000/support' });
     const wrapper = shallow(<LearnerDashboardHeader />);
-    expect(wrapper.instance.findByType(Header)[0].props.secondaryMenuItems.length).toBe(1);
+    expect(wrapper.instance.findByType(RobboHeader)).toHaveLength(1);
   });
   test('should display Programs link if it is enabled by configuration', () => {
     mergeConfig({ ENABLE_PROGRAMS: true });
     const wrapper = shallow(<LearnerDashboardHeader />);
-    expect(wrapper.instance.findByType(Header)[0].props.mainMenuItems.length).toBe(3);
+    expect(wrapper.instance.findByType(RobboHeader)).toHaveLength(1);
   });
 });

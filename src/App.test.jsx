@@ -13,7 +13,7 @@ import AppWrapper from 'containers/WidgetContainers/AppWrapper';
 import { App } from './App';
 import messages from './messages';
 
-jest.mock('@edx/frontend-component-footer', () => ({ FooterSlot: 'FooterSlot' }));
+jest.mock('robbo-layout', () => ({ RobboFooter: 'RobboFooter' }));
 
 jest.mock('containers/Dashboard', () => 'Dashboard');
 jest.mock('containers/LearnerDashboardHeader', () => 'LearnerDashboardHeader');

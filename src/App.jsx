@@ -25,55 +25,9 @@ import AppWrapper from 'containers/WidgetContainers/AppWrapper';
 import LearnerDashboardHeader from 'containers/LearnerDashboardHeader';
 
 import { getConfig } from '@edx/frontend-platform';
+import { RobboFooter } from 'robbo-layout';
 import messages from './messages';
 import './App.scss';
-
-const RobboFooter = () => (
-  <div className="wrapper wrapper-footer">
-    <footer id="footer" className="robbo-site-footer">
-      <div className="robbo-site-footer__inner">
-        <div className="robbo-footer__left">
-          <div className="robbo-footer__brand">
-            <span className="robbo-footer__logo" aria-label="РОББО">
-              РОББО
-              <sup className="robbo-footer__reg" aria-hidden="true">®</sup>
-            </span>
-          </div>
-          <p className="robbo-footer__copyright">
-            © ООО «РОББО ТЕХНОЛОГИИ», {new Date().getFullYear()}
-          </p>
-        </div>
-        <div className="robbo-footer__center">
-          <nav className="robbo-footer__nav" aria-label="Документы">
-            <ul className="robbo-footer__links">
-              <li>
-                <a href="https://edurobbo.ru/doc" target="_blank" rel="noopener noreferrer">
-                  Сведения об образовательной организации
-                </a>
-              </li>
-              <li>
-                <a href="https://robbo.ru/wp-content/uploads/policy.pdf" target="_blank" rel="noopener noreferrer">
-                  Политика обработки персональных данных
-                </a>
-              </li>
-              <li>
-                <a href="https://robbo.ru/wp-content/uploads/agree.pdf" target="_blank" rel="noopener noreferrer">
-                  Согласие на обработку персональных данных
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div className="robbo-footer__contacts">
-          <p className="robbo-footer__contacts-title">Контактные данные:</p>
-          <p className="robbo-footer__contacts-line">
-            Почта <a href="mailto:skill@robbo.ru">skill@robbo.ru</a>
-          </p>
-        </div>
-      </div>
-    </footer>
-  </div>
-);
 
 export const App = () => {
   const { authenticatedUser } = React.useContext(AppContext);
@@ -123,7 +77,7 @@ export const App = () => {
         <title>{formatMessage(messages.pageTitle)}</title>
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
       </Helmet>
-      <div>
+      <div className="robbo-layout-page">
         <AppWrapper>
           <LearnerDashboardHeader />
           <main id="main">

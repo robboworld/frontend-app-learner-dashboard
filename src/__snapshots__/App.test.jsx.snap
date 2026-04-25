@@ -29,7 +29,7 @@ exports[`App router component component initialize failure snapshot 1`] = `
         </Alert>
       </main>
     </AppWrapper>
-    <FooterSlot />
+    <RobboFooter />
   </div>
 </Fragment>
 `;
@@ -57,7 +57,7 @@ exports[`App router component component no network failure snapshot 1`] = `
         <Dashboard />
       </main>
     </AppWrapper>
-    <FooterSlot />
+    <RobboFooter />
   </div>
 </Fragment>
 `;
@@ -85,7 +85,7 @@ exports[`App router component component no network failure with optimizely proje
         <Dashboard />
       </main>
     </AppWrapper>
-    <FooterSlot />
+    <RobboFooter />
   </div>
 </Fragment>
 `;
@@ -113,7 +113,7 @@ exports[`App router component component no network failure with optimizely url s
         <Dashboard />
       </main>
     </AppWrapper>
-    <FooterSlot />
+    <RobboFooter />
   </div>
 </Fragment>
 `;
@@ -147,7 +147,7 @@ exports[`App router component component refresh failure snapshot 1`] = `
         </Alert>
       </main>
     </AppWrapper>
-    <FooterSlot />
+    <RobboFooter />
   </div>
 </Fragment>
 `;

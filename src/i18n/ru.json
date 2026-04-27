@@ -142,5 +142,6 @@
   "learner-dash.courseCard.banners.credit.rejected": "{providerName} не одобрил(а) зачёт. Подробности — на {linkToProviderSite}.",
   "learner-dash.courseCard.banners.credit.requestCredit": "Запросить зачёт",
   "learner-dash.courseCard.banners.credit.viewCredit": "Смотреть зачёт",
-  "learner-dash.courseCard.banners.credit.viewDetails": "Подробнее"
+  "learner-dash.courseCard.banners.credit.viewDetails": "Подробнее",
+  "robbo.header.mainNav.courseCatalog": "Каталог курсов"
 }

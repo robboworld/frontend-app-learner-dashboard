@@ -1,3 +1,17 @@
-.confirm-email-now-button {
-  text-decoration: underline !important;
+.confirm-email-page-banner {
+  .pgn__pageBanner-component.pgn__pageBanner__accentA {
+    background-color: #9adf8f;
+    color: #0b5d1e;
+  }
+
+  .confirm-email-now-button {
+    color: #ffffff !important;
+    text-decoration: underline !important;
+  }
+
+  button[class*="dismiss"],
+  [class*="dismiss"] {
+    right: 0.75rem;
+    left: auto;
+  }
 }

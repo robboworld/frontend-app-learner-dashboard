@@ -1,5 +1,5 @@
 import { MockUseState } from 'testUtils';
-import { reduxHooks, apiHooks } from 'hooks';
+import { reduxHooks } from 'hooks';
 
 import * as hooks from './hooks';
 
@@ -7,13 +7,7 @@ jest.mock('hooks', () => ({
   reduxHooks: {
     useEmailConfirmationData: jest.fn(),
   },
-  apiHooks: {
-    useSendConfirmEmail: jest.fn(),
-  },
 }));
-
-const sendConfirmEmail = jest.fn();
-apiHooks.useSendConfirmEmail.mockReturnValue(sendConfirmEmail);
 
 const emailConfirmation = {
   isNeeded: true,
@@ -65,13 +59,13 @@ describe('ConfirmEmailBanner hooks', () => {
     });
     test('openConfirmModalButtonClick', () => {
       out.openConfirmModalButtonClick();
-      expect(state.values.showConfirmModal).toEqual(true);
-      expect(sendConfirmEmail).toBeCalled();
+      expect(state.values.showConfirmModal).toEqual(false);
+      expect(state.values.showPageBanner).toEqual(true);
     });
     test('userConfirmEmailButtonClick', () => {
       out.userConfirmEmailButtonClick();
       expect(state.values.showConfirmModal).toEqual(false);
-      expect(state.values.showPageBanner).toEqual(false);
+      expect(state.values.showPageBanner).toEqual(true);
     });
   });
 });

@@ -50,7 +50,11 @@ pull_translations:
                translations/frontend-component-footer/src/i18n/messages:frontend-component-footer \
                translations/frontend-app-learner-dashboard/src/i18n/messages:frontend-app-learner-dashboard
 
-	$(intl_imports) frontend-platform paragon frontend-component-footer frontend-app-learner-dashboard
+	mkdir -p $(i18n)/messages/robbo-custom
+	cp $(i18n)/robbo-overrides/en.json $(i18n)/messages/robbo-custom/en.json
+	cp $(i18n)/robbo-overrides/ru.json $(i18n)/messages/robbo-custom/ru.json
+
+	$(intl_imports) frontend-platform paragon frontend-component-footer frontend-app-learner-dashboard robbo-custom
 
 # This target is used by CI.
 validate-no-uncommitted-package-lock-changes:

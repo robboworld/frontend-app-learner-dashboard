@@ -16,7 +16,7 @@
   "learner-dash.courseListFilters.sort": "Сортировка",
   "learner-dash.courseListFilters.sortLastEnrolled": "По дате записи",
   "learner-dash.courseListFilters.sortTitle": "По названию (А–Я)",
-  "learner-dash.courseListFilters.refine": "Уточнить",
+  "learner-dash.courseListFilters.refine": "Настройки",
   "dashboard.mycourses": "Мои курсы",
   "learner-dash.emailSettings.header": "Получать письма о курсе?",
   "learner-dash.emailSettings.emailsOff": "Письма о курсе выключены",
@@ -142,14 +142,5 @@
   "learner-dash.courseCard.banners.credit.rejected": "{providerName} не одобрил(а) зачёт. Подробности — на {linkToProviderSite}.",
   "learner-dash.courseCard.banners.credit.requestCredit": "Запросить зачёт",
   "learner-dash.courseCard.banners.credit.viewCredit": "Смотреть зачёт",
-  "learner-dash.courseCard.banners.credit.viewDetails": "Подробнее",
-  "robbo.header.mainNav.myCourses": "Мои курсы",
-  "robbo.header.mainNav.programs": "Программы",
-  "robbo.header.mainNav.courseCatalog": "Каталог курсов",
-  "robbo.header.mainNav.aria": "Основная навигация",
-  "robbo.header.user.toggleAria": "Меню параметров",
-  "robbo.header.user.menuDropdownAria": "Дополнительные параметры",
-  "robbo.header.user.dashboard": "Панель управления",
-  "robbo.header.user.profile": "Профиль",
-  "robbo.header.user.signOut": "Выйти"
+  "learner-dash.courseCard.banners.credit.viewDetails": "Подробнее"
 }

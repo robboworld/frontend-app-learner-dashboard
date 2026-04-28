@@ -9,6 +9,11 @@ $fa-font-path: "~font-awesome/fonts";
 
 $input-focus-box-shadow: $input-box-shadow; // hack to get upgrade to paragon 4.0.0 to work
 
+// Paragon portals (ModalDialog, etc.) mount under #paragon-portal-root — outside #dashboard-content.
+$robbo-portal-accent: #00b140;
+$robbo-portal-accent-hover: #009638;
+$robbo-portal-accent-dark: #15803d;
+
 .text-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -62,5 +67,77 @@ $input-focus-box-shadow: $input-box-shadow; // hack to get upgrade to paragon 4.
   }
   .confirm-modal .pgn__modal-body {
     overflow: hidden;
+  }
+
+  // Paragon `button-focus`: синее кольцо — псевдоэлемент ::before. Убираем, чтобы не дублировать
+  // с нашим зелёным box-shadow на .btn-primary / .btn-tertiary.
+  .btn:focus,
+  .btn.focus,
+  .btn:focus-visible {
+    &::before {
+      display: none;
+    }
+  }
+
+  // Unenroll / survey modals: match dashboard Robbo green (primary in brand is blue).
+  .btn-primary {
+    background-color: $robbo-portal-accent;
+    border-color: $robbo-portal-accent;
+
+    &:hover:not(:disabled) {
+      background-color: $robbo-portal-accent-hover;
+      border-color: $robbo-portal-accent-hover;
+    }
+
+    &:focus,
+    &.focus,
+    &:focus-visible {
+      background-color: $robbo-portal-accent;
+      border-color: $robbo-portal-accent;
+      box-shadow: 0 0 0 0.2rem rgba($robbo-portal-accent-dark, 0.45);
+    }
+
+    &:active:not(:disabled) {
+      background-color: $robbo-portal-accent-dark;
+      border-color: $robbo-portal-accent-dark;
+    }
+  }
+
+  // Tertiary: зелёная обводка только при фокусе (как .form-control), без постоянной рамки.
+  .btn-tertiary {
+    &:focus,
+    &.focus,
+    &:focus-visible {
+      border-color: $robbo-portal-accent;
+      box-shadow: 0 0 0 0.2rem rgba($robbo-portal-accent-dark, 0.35);
+      outline: none;
+    }
+  }
+
+  .pgn__form-radio-input {
+    &:checked {
+      border-color: $robbo-portal-accent;
+      background-color: #fff;
+      background-image: radial-gradient(
+        circle,
+        $robbo-portal-accent 42%,
+        transparent 43%
+      );
+    }
+
+    &:focus,
+    &:focus-visible {
+      border-color: $robbo-portal-accent;
+
+      &::before {
+        border-color: $robbo-portal-accent;
+      }
+    }
+  }
+
+  .form-control:focus,
+  .form-control:focus-visible {
+    border-color: $robbo-portal-accent;
+    box-shadow: 0 0 0 0.2rem rgba($robbo-portal-accent-dark, 0.35);
   }
 }

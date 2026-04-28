@@ -3,6 +3,7 @@
 // Match Robbo MFE header bar (.robbo-layout-header uses #00b140).
 $robbo-dashboard-accent: #00b140;
 $robbo-dashboard-accent-hover: #009638;
+$robbo-dashboard-accent-dark: #15803d;
 // Readable line length for the course list when the sidebar promo column is removed (~ former col-8 at xl).
 $robbo-dashboard-course-list-max-width: 976px;
 
@@ -79,16 +80,21 @@ $robbo-dashboard-course-list-max-width: 976px;
     background-color: $robbo-dashboard-accent;
     border-color: $robbo-dashboard-accent;
 
-    &:hover,
-    &:active {
+    &:hover:not(:disabled) {
       background-color: $robbo-dashboard-accent-hover;
       border-color: $robbo-dashboard-accent-hover;
     }
 
-    &:focus {
+    &:focus,
+    &:focus-visible {
       background-color: $robbo-dashboard-accent;
       border-color: $robbo-dashboard-accent;
-      box-shadow: 0 0 0 0.2rem rgba($robbo-dashboard-accent, 0.35);
+      box-shadow: 0 0 0 0.2rem rgba($robbo-dashboard-accent-dark, 0.45);
+    }
+
+    &:active:not(:disabled) {
+      background-color: $robbo-dashboard-accent-dark;
+      border-color: $robbo-dashboard-accent-dark;
     }
   }
 
@@ -96,16 +102,22 @@ $robbo-dashboard-course-list-max-width: 976px;
     color: $robbo-dashboard-accent;
     border-color: $robbo-dashboard-accent;
 
-    &:hover,
-    &:active {
+    &:hover:not(:disabled) {
       color: #fff;
       background-color: $robbo-dashboard-accent;
       border-color: $robbo-dashboard-accent;
     }
 
-    &:focus {
+    &:active:not(:disabled) {
+      color: #fff;
+      background-color: $robbo-dashboard-accent-dark;
+      border-color: $robbo-dashboard-accent-dark;
+    }
+
+    &:focus,
+    &:focus-visible {
       border-color: $robbo-dashboard-accent;
-      box-shadow: 0 0 0 0.2rem rgba($robbo-dashboard-accent, 0.35);
+      box-shadow: 0 0 0 0.2rem rgba($robbo-dashboard-accent-dark, 0.45);
     }
   }
 
@@ -146,6 +158,29 @@ $robbo-dashboard-course-list-max-width: 976px;
       outline: 2px transparent;
       background-color: $robbo-dashboard-accent;
       color: #fff;
+    }
+  }
+
+  // Course card ⋮ menu — Paragon dropdown :active uses primary (blue); use Robbo green.
+  .course-list-container {
+    a.pgn__dropdown-item,
+    .pgn__dropdown-item.dropdown-item {
+      &:hover {
+        color: $robbo-dashboard-accent-dark;
+        background-color: #eaf8ef;
+      }
+
+      &:focus,
+      &:focus-visible {
+        color: $robbo-dashboard-accent-dark;
+        background-color: #d1fae5;
+        outline: none;
+      }
+
+      &:active {
+        color: #fff;
+        background-color: $robbo-dashboard-accent;
+      }
     }
   }
 }

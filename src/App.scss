@@ -54,8 +54,11 @@ $robbo-portal-accent-dark: #15803d;
     }
   }
 
+  // `<footer>` may sit inside a flex `.wrapper-footer`; do not allow flex-shrink (old `flex: 0` meant shrink 1).
   footer {
-    flex: 0;
+    flex: 0 0 auto;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 

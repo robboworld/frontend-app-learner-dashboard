@@ -1,5 +1,10 @@
 @import "@openedx/paragon/scss/core/core";
 
+// CTA «Каталог курсов»: обычный зелёный Robbo (как .btn-primary на дашборде).
+$robbo-empty-catalog-cta: #00b140;
+$robbo-empty-catalog-cta-hover: #009638;
+$robbo-empty-catalog-cta-active: #15803d;
+
 #no-courses-content-view {
   border: 2px solid $light-400;
   flex-direction: column;
@@ -10,6 +15,32 @@
   & > * {
     margin-top: map-get($spacers, 3);
     margin-bottom: map-get($spacers, 3);
+  }
+
+  .btn-brand {
+    background-color: $robbo-empty-catalog-cta;
+    border-color: $robbo-empty-catalog-cta;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background-color: $robbo-empty-catalog-cta-hover;
+      border-color: $robbo-empty-catalog-cta-hover;
+      color: #fff;
+    }
+
+    &:focus,
+    &:focus-visible {
+      background-color: $robbo-empty-catalog-cta;
+      border-color: $robbo-empty-catalog-cta;
+      color: #fff;
+      box-shadow: 0 0 0 0.2rem rgba($robbo-empty-catalog-cta-active, 0.45);
+    }
+
+    &:active:not(:disabled) {
+      background-color: $robbo-empty-catalog-cta-active;
+      border-color: $robbo-empty-catalog-cta-active;
+      color: #fff;
+    }
   }
 }
 

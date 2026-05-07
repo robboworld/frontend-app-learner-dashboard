@@ -19,7 +19,7 @@ export const LearnerDashboardHeader = () => {
   return (
     <>
       <ConfirmEmailBanner />
-      <RobboHeader activeSection="dashboard" onCatalogClick={exploreCoursesClick} />
+      <RobboHeader activeSection="dashboard" onCatalogClick={exploreCoursesClick} collapseNavIntoUserMenuOnNarrow />
       <MasqueradeBar />
     </>
   );

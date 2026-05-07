@@ -72,44 +72,48 @@ exports[`CourseFilterControls mobile snapshot 1`] = `
       show={false}
     >
       <div
-        className="p-1 mr-3"
+        className="robbo-course-filter-sheet-content"
       >
-        <b>
-          Refine
-        </b>
-      </div>
-      <hr />
-      <div
-        className="filter-form-row"
-      >
-        <FilterForm
-          filters={
-            [
-              "test-filter",
-            ]
-          }
-          handleFilterChange={[MockFunction handleFilterChange]}
-        />
-      </div>
-      <div
-        className="filter-form-row text-left m-1"
-      >
-        <SortForm
-          handleSortChange={[MockFunction handleSortChange]}
-          sortBy="test-sort-by"
-        />
-      </div>
-      <div
-        className="pgn__modal-close-container"
-      >
-        <ModalCloseButton
-          onClick={[MockFunction close]}
-          variant="tertiary"
+        <div
+          className="p-1 mr-3"
         >
-          <Icon
-            src={[MockFunction icons.Close]}
+          <b>
+            Refine
+          </b>
+        </div>
+        <hr />
+        <div
+          className="filter-form-row"
+        >
+          <FilterForm
+            filters={
+              [
+                "test-filter",
+              ]
+            }
+            handleFilterChange={[MockFunction handleFilterChange]}
           />
-        </ModalCloseButton>
+        </div>
+        <div
+          className="filter-form-row text-left m-1"
+        >
+          <SortForm
+            handleSortChange={[MockFunction handleSortChange]}
+            sortBy="test-sort-by"
+          />
+        </div>
+        <div
+          className="pgn__modal-close-container"
+        >
+          <ModalCloseButton
+            onClick={[MockFunction close]}
+            variant="tertiary"
+          >
+            <Icon
+              src={[MockFunction icons.Close]}
+            />
+          </ModalCloseButton>
+        </div>
       </div>
     </Sheet>
   </Form>

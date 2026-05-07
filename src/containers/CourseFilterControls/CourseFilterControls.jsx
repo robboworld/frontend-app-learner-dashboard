@@ -65,20 +65,22 @@ export const CourseFilterControls = ({
               show={isOpen}
               onClose={close}
             >
-              <div className="p-1 mr-3">
-                <b>{formatMessage(messages.refine)}</b>
-              </div>
-              <hr />
-              <div className="filter-form-row">
-                <FilterForm {...{ filters, handleFilterChange }} />
-              </div>
-              <div className="filter-form-row text-left m-1">
-                <SortForm {...{ sortBy, handleSortChange }} />
-              </div>
-              <div className="pgn__modal-close-container">
-                <ModalCloseButton variant="tertiary" onClick={close}>
-                  <Icon src={Close} />
-                </ModalCloseButton>
+              <div className="robbo-course-filter-sheet-content">
+                <div className="p-1 mr-3">
+                  <b>{formatMessage(messages.refine)}</b>
+                </div>
+                <hr />
+                <div className="filter-form-row">
+                  <FilterForm {...{ filters, handleFilterChange }} />
+                </div>
+                <div className="filter-form-row text-left m-1">
+                  <SortForm {...{ sortBy, handleSortChange }} />
+                </div>
+                <div className="pgn__modal-close-container">
+                  <ModalCloseButton variant="tertiary" onClick={close}>
+                    <Icon src={Close} />
+                  </ModalCloseButton>
+                </div>
               </div>
             </Sheet>
           ) : (

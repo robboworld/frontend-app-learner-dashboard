@@ -5,6 +5,7 @@ exports[`LearnerDashboardHeader render 1`] = `
   <ConfirmEmailBanner />
   <RobboHeader
     activeSection="dashboard"
+    collapseNavIntoUserMenuOnNarrow={true}
     onCatalogClick={[Function]}
     showUserDropdown={true}
   />

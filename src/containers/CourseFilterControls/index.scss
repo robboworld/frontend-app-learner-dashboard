@@ -1,3 +1,66 @@
+// Paragon <Sheet /> portals into #sheet-root on body, so #course-filter-controls
+// descendant selectors in Dashboard/index.scss do not reach these controls.
+$robbo-course-filter-accent: #00b140;
+$robbo-course-filter-check-svg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3 6-6'/%3e%3c/svg%3e");
+$robbo-course-filter-indeterminate-svg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
+
+#sheet-root .robbo-course-filter-sheet-content {
+  .pgn__form-radio-input {
+    &:checked {
+      border-color: $robbo-course-filter-accent;
+      background-color: #fff;
+      background-image: radial-gradient(
+        circle,
+        $robbo-course-filter-accent 42%,
+        transparent 43%
+      );
+    }
+
+    &:focus,
+    &:focus-visible {
+      border-color: $robbo-course-filter-accent;
+
+      &::before {
+        border-color: $robbo-course-filter-accent;
+      }
+    }
+  }
+
+  .pgn__form-checkbox-input {
+    &:checked {
+      border-color: $robbo-course-filter-accent;
+      background-color: $robbo-course-filter-accent;
+      background-image: $robbo-course-filter-check-svg;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 12px 12px;
+    }
+
+    &:indeterminate {
+      border-color: $robbo-course-filter-accent;
+      background-color: $robbo-course-filter-accent;
+      background-image: $robbo-course-filter-indeterminate-svg;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 12px 12px;
+    }
+
+    &:focus,
+    &:focus-visible {
+      border-color: $robbo-course-filter-accent;
+
+      &::before {
+        border-color: $robbo-course-filter-accent;
+      }
+    }
+  }
+
+  .filter-form-heading {
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
 .pgn__sheet-component {
   max-width: 75% !important;
   width: 75% !important;

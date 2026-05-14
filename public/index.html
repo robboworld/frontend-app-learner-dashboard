@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en-us" dir="ltr">
   <head>
+      <!-- Shell title before JS; App.jsx Helmet uses learner-dash.title from locale catalogs. -->
+      <title><%= (process.env.SITE_NAME && process.env.SITE_NAME != 'null') ? 'Learner Home | ' + process.env.SITE_NAME : 'Learner Home' %></title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>

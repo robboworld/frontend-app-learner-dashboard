@@ -2,7 +2,7 @@
 
 exports[`Dashboard snapshots courses loaded, show select session modal snapshot 1`] = `
 <div
-  className="d-flex flex-column p-2 pt-0"
+  className="d-flex flex-column px-2 pb-2 pt-2 pt-md-0"
   id="dashboard-container"
 >
   <h1
@@ -27,7 +27,7 @@ exports[`Dashboard snapshots courses loaded, show select session modal snapshot 
 
 exports[`Dashboard snapshots courses still loading snapshot 1`] = `
 <div
-  className="d-flex flex-column p-2 pt-0"
+  className="d-flex flex-column px-2 pb-2 pt-2 pt-md-0"
   id="dashboard-container"
 >
   <h1
@@ -46,7 +46,7 @@ exports[`Dashboard snapshots courses still loading snapshot 1`] = `
 
 exports[`Dashboard snapshots there are no courses snapshot 1`] = `
 <div
-  className="d-flex flex-column p-2 pt-0"
+  className="d-flex flex-column px-2 pb-2 pt-2 pt-md-0"
   id="dashboard-container"
 >
   <h1

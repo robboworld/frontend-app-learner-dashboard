@@ -26,17 +26,31 @@
 
 @include media-breakpoint-down(md) {
   .course-list-heading-container {
-    flex-direction: column-reverse;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: map-get($spacers, 2);
+    width: 100%;
+    // Match `#dashboard-container` mobile top padding (`pt-2` < md) — same step before course cards
+    margin-bottom: map-get($spacers, 2);
   }
 
   .course-filter-controls-container {
-    text-align: left;
-    align-self: flex-start;
+    text-align: right;
+    align-self: center;
+    flex-shrink: 0;
+
+    // Compact «refine» trigger next to the section title on narrow viewports
+    #course-filter-controls > .btn {
+      font-size: $font-size-sm;
+      padding: 0.3125rem 0.625rem;
+    }
   }
 
   .course-list-title {
     font-size: $h3-font-size;
     margin: map-get($spacers, 2) 0;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 }

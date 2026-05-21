@@ -22,8 +22,20 @@ export const CourseCard = ({
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
       <Card orientation={orientation}>
         <div className="d-flex flex-column w-100">
-          <div {...(!isCollapsed && { className: 'd-flex' })}>
-            <CourseCardImage cardId={cardId} orientation="horizontal" />
+          <div
+            className={
+              isCollapsed
+                ? 'course-card-main course-card-main--stacked'
+                : 'course-card-main d-flex'
+            }
+          >
+            {isCollapsed ? (
+              <div className="course-card-image-row">
+                <CourseCardImage cardId={cardId} orientation="horizontal" />
+              </div>
+            ) : (
+              <CourseCardImage cardId={cardId} orientation="horizontal" />
+            )}
             <Card.Body>
               <Card.Header
                 title={<CourseCardTitle cardId={cardId} />}

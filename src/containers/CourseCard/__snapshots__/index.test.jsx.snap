@@ -12,11 +12,17 @@ exports[`CourseCard component snapshot: collapsed 1`] = `
     <div
       className="d-flex flex-column w-100"
     >
-      <div>
-        <CourseCardImage
-          cardId="test-card-id"
-          orientation="horizontal"
-        />
+      <div
+        className="course-card-main course-card-main--stacked"
+      >
+        <div
+          className="course-card-image-row"
+        >
+          <CourseCardImage
+            cardId="test-card-id"
+            orientation="horizontal"
+          />
+        </div>
         <Card.Body>
           <Card.Header
             actions={
@@ -67,7 +73,7 @@ exports[`CourseCard component snapshot: not collapsed 1`] = `
       className="d-flex flex-column w-100"
     >
       <div
-        className="d-flex"
+        className="course-card-main d-flex"
       >
         <CourseCardImage
           cardId="test-card-id"

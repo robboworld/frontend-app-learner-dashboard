@@ -1,7 +1,58 @@
 @import "@openedx/paragon/scss/core/core";
 
+// Match useIsCollapsed in hooks.js (width < breakpoints.small.maxWidth).
+$robbo-course-card-collapsed-max: map-get($grid-breakpoints, md) - 0.02px;
+
 .course-card {
   .card {
+    .course-card-main.d-flex {
+      align-items: stretch;
+
+      > .pgn__card-wrapper-image-cap.horizontal {
+        display: block;
+        flex-shrink: 0;
+        height: 100%;
+
+        .pgn__card-image-cap {
+          display: block;
+          height: 100%;
+          width: 100%;
+          max-width: none;
+          object-fit: cover;
+          border-radius: $card-image-border-radius 0 0 $card-image-border-radius;
+        }
+      }
+
+      .pgn__card-body {
+        flex: 1;
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: $robbo-course-card-collapsed-max) {
+      .course-card-main--stacked {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .course-card-image-row {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .pgn__card-wrapper-image-cap.horizontal.overflow-visible {
+        overflow: hidden;
+
+        .pgn__card-image-cap {
+          border-radius: $card-image-border-radius;
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+
     .pgn__card-wrapper-image-cap.vertical {
       display: flex;
       min-height: $card-image-vertical-max-height;
@@ -25,6 +76,19 @@
       .pgn__action-row {
         align-self: flex-end;
         white-space: nowrap;
+      }
+    }
+
+    @media (max-width: $robbo-course-card-collapsed-max) {
+      .pgn__card-footer.vertical {
+        align-items: center;
+        justify-content: center;
+
+        .pgn__action-row {
+          align-self: center;
+          justify-content: center;
+          width: 100%;
+        }
       }
     }
 

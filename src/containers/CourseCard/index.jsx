@@ -18,6 +18,8 @@ export const CourseCard = ({
 }) => {
   const isCollapsed = useIsCollapsed();
   const orientation = isCollapsed ? 'vertical' : 'horizontal';
+  const courseCardMenu = <CourseCardMenu cardId={cardId} />;
+
   return (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
       <Card orientation={orientation}>
@@ -31,7 +33,11 @@ export const CourseCard = ({
           >
             {isCollapsed ? (
               <div className="course-card-image-row">
-                <CourseCardImage cardId={cardId} orientation="horizontal" />
+                <div className="course-card-image-row__media">
+                  <div className="course-card-image-frame">
+                    <CourseCardImage cardId={cardId} orientation="horizontal" />
+                  </div>
+                </div>
               </div>
             ) : (
               <CourseCardImage cardId={cardId} orientation="horizontal" />
@@ -39,7 +45,7 @@ export const CourseCard = ({
             <Card.Body>
               <Card.Header
                 title={<CourseCardTitle cardId={cardId} />}
-                actions={<CourseCardMenu cardId={cardId} />}
+                actions={isCollapsed ? null : courseCardMenu}
               />
               <Card.Section className="pt-0">
                 <CourseCardDetails cardId={cardId} />
@@ -49,7 +55,20 @@ export const CourseCard = ({
               </Card.Footer>
             </Card.Body>
           </div>
-          <CourseCardBanners cardId={cardId} />
+          <div
+            className={
+              isCollapsed
+                ? 'course-card-banners-wrap course-card-banners-wrap--stacked'
+                : 'course-card-banners-wrap'
+            }
+          >
+            <CourseCardBanners cardId={cardId} />
+            {isCollapsed ? (
+              <div className="course-card-banners__actions">
+                {courseCardMenu}
+              </div>
+            ) : null}
+          </div>
         </div>
       </Card>
     </div>

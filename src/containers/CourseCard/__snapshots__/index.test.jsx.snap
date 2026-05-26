@@ -18,18 +18,22 @@ exports[`CourseCard component snapshot: collapsed 1`] = `
         <div
           className="course-card-image-row"
         >
-          <CourseCardImage
-            cardId="test-card-id"
-            orientation="horizontal"
-          />
+          <div
+            className="course-card-image-row__media"
+          >
+            <div
+              className="course-card-image-frame"
+            >
+              <CourseCardImage
+                cardId="test-card-id"
+                orientation="horizontal"
+              />
+            </div>
+          </div>
         </div>
         <Card.Body>
           <Card.Header
-            actions={
-              <CourseCardMenu
-                cardId="test-card-id"
-              />
-            }
+            actions={null}
             title={
               <CourseCardTitle
                 cardId="test-card-id"
@@ -52,9 +56,20 @@ exports[`CourseCard component snapshot: collapsed 1`] = `
           </Card.Footer>
         </Card.Body>
       </div>
-      <CourseCardBanners
-        cardId="test-card-id"
-      />
+      <div
+        className="course-card-banners-wrap course-card-banners-wrap--stacked"
+      >
+        <CourseCardBanners
+          cardId="test-card-id"
+        />
+        <div
+          className="course-card-banners__actions"
+        >
+          <CourseCardMenu
+            cardId="test-card-id"
+          />
+        </div>
+      </div>
     </div>
   </Card>
 </div>
@@ -108,9 +123,13 @@ exports[`CourseCard component snapshot: not collapsed 1`] = `
           </Card.Footer>
         </Card.Body>
       </div>
-      <CourseCardBanners
-        cardId="test-card-id"
-      />
+      <div
+        className="course-card-banners-wrap"
+      >
+        <CourseCardBanners
+          cardId="test-card-id"
+        />
+      </div>
     </div>
   </Card>
 </div>

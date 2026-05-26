@@ -1,9 +1,18 @@
 @import "@openedx/paragon/scss/core/core";
+@import "../../sass/robbo-brand-tokens";
 
 // Match useIsCollapsed in hooks.js (width < breakpoints.small.maxWidth).
 $robbo-course-card-collapsed-max: map-get($grid-breakpoints, md) - 0.02px;
-
+$robbo-course-card-stacked-menu-size: 2.75rem; // Paragon btn-icon-md (44px)
+$robbo-course-card-stacked-padding: map-get($spacers, 3);
+$robbo-course-card-stacked-gap: map-get($spacers, 2);
 .course-card {
+  // Stacked layout tokens (overridable from Tutor / extra CSS on .course-card).
+  --robbo-course-card-stacked-padding: #{$robbo-course-card-stacked-padding};
+  --robbo-course-card-stacked-gap: #{$robbo-course-card-stacked-gap};
+  --robbo-course-card-stacked-image-max-height: #{$card-image-vertical-max-height};
+  --robbo-course-card-stacked-image-radius: #{$card-image-border-radius};
+
   .card {
     .course-card-main.d-flex {
       align-items: stretch;
@@ -37,18 +46,126 @@ $robbo-course-card-collapsed-max: map-get($grid-breakpoints, md) - 0.02px;
       }
 
       .course-card-image-row {
-        display: flex;
-        justify-content: center;
+        box-sizing: border-box;
+        padding-block: var(--robbo-course-card-stacked-padding);
+        padding-inline: var(--robbo-course-card-stacked-padding);
         width: 100%;
       }
 
-      .pgn__card-wrapper-image-cap.horizontal.overflow-visible {
+      .course-card-image-row__media {
+        border-radius: var(--robbo-course-card-stacked-image-radius);
+        min-width: 0;
         overflow: hidden;
+        width: 100%;
+      }
+
+      .course-card-image-frame {
+        background-color: transparent;
+        border: 0;
+        border-radius: var(--robbo-course-card-stacked-image-radius);
+        box-sizing: border-box;
+        display: block;
+        overflow: hidden;
+        padding: 0;
+        width: 100%;
+      }
+
+      .course-card-image-frame .pgn__card-wrapper-image-cap.horizontal {
+        border-radius: var(--robbo-course-card-stacked-image-radius);
+        display: block;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        width: 100%;
+
+        &.overflow-visible {
+          overflow: hidden;
+        }
 
         .pgn__card-image-cap {
-          border-radius: $card-image-border-radius;
-          width: 100%;
+          border-radius: var(--robbo-course-card-stacked-image-radius) !important;
+          display: block;
+          margin: 0;
           height: auto;
+          max-width: 100%;
+          object-fit: contain;
+          object-position: center center;
+          width: 100%;
+        }
+      }
+
+      .course-card-banners-wrap--stacked {
+        position: relative;
+      }
+
+      .course-card-banners-wrap--stacked .course-card-banners__actions {
+        inset-inline-end: map-get($spacers, 3);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: $robbo-course-card-stacked-menu-size;
+        z-index: 1;
+      }
+
+      .course-card-banners-wrap--stacked .course-card-banners > .alert:last-of-type {
+        align-items: center;
+        display: flex;
+        min-height: $robbo-course-card-stacked-menu-size;
+        padding-inline-end: calc(
+          #{map-get($spacers, 3)} + #{$robbo-course-card-stacked-menu-size} + #{map-get($spacers, 2)}
+        );
+      }
+
+      .course-card-main--stacked .pgn__card-body {
+        padding-bottom: var(--robbo-course-card-stacked-padding);
+        padding-inline: var(--robbo-course-card-stacked-padding);
+        padding-top: 0;
+      }
+
+      .course-card-main--stacked .pgn__card-header {
+        padding-inline: 0;
+      }
+
+      .course-card-main--stacked .pgn__card-header-content {
+        margin-top: 0;
+        min-width: 0;
+      }
+
+      .course-card-main--stacked .pgn__card-header-title-md {
+        overflow-wrap: anywhere;
+
+        h3 {
+          margin-bottom: map-get($spacers, 1);
+        }
+      }
+
+      .course-card-main--stacked .course-card-title {
+        overflow-wrap: anywhere;
+      }
+
+      .course-card-main--stacked .pgn__card-section.pt-0 {
+        padding-inline: 0;
+        padding-top: map-get($spacers, 2);
+      }
+
+      .course-card-main--stacked .pgn__card-footer.vertical {
+        align-items: stretch;
+        justify-content: stretch;
+        margin: 0;
+        padding: 0;
+
+        .pgn__action-row {
+          align-self: stretch;
+          gap: 0;
+          justify-content: stretch;
+          margin: 0;
+          width: 100%;
+
+          > .btn,
+          > a.btn {
+            margin: 0;
+            width: 100%;
+          }
         }
       }
     }
@@ -57,15 +174,19 @@ $robbo-course-card-collapsed-max: map-get($grid-breakpoints, md) - 0.02px;
       display: flex;
       min-height: $card-image-vertical-max-height;
     }
-    .pgn__card-image-cap {
+
+    .course-card-main:not(.course-card-main--stacked) .pgn__card-image-cap {
       border-bottom-left-radius: 0 !important;
     }
+
     .overflow-visible {
       overflow: visible;
     }
+
     .pgn__card-header-content {
       margin-top: 1.5rem;
     }
+
     .pgn__card-footer {
       flex-wrap: nowrap;
 
@@ -76,19 +197,6 @@ $robbo-course-card-collapsed-max: map-get($grid-breakpoints, md) - 0.02px;
       .pgn__action-row {
         align-self: flex-end;
         white-space: nowrap;
-      }
-    }
-
-    @media (max-width: $robbo-course-card-collapsed-max) {
-      .pgn__card-footer.vertical {
-        align-items: center;
-        justify-content: center;
-
-        .pgn__action-row {
-          align-self: center;
-          justify-content: center;
-          width: 100%;
-        }
       }
     }
 

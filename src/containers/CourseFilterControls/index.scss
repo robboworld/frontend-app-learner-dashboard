@@ -1,6 +1,8 @@
+@import '../../sass/robbo-brand-tokens';
+
 // Paragon <Sheet /> portals into #sheet-root on body, so #course-filter-controls
 // descendant selectors in Dashboard/index.scss do not reach these controls.
-$robbo-course-filter-accent: #00b140;
+$robbo-course-filter-accent: $robbo-brand-primary;
 $robbo-course-filter-check-svg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3 6-6'/%3e%3c/svg%3e");
 $robbo-course-filter-indeterminate-svg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
 

@@ -1,9 +1,9 @@
 @import "@openedx/paragon/scss/core/core";
+@import '../../sass/robbo-brand-tokens';
 
-// Match Robbo MFE header bar (.robbo-layout-header uses #00b140).
-$robbo-dashboard-accent: #00b140;
-$robbo-dashboard-accent-hover: #009638;
-$robbo-dashboard-accent-dark: #15803d;
+$robbo-dashboard-accent: $robbo-brand-primary;
+$robbo-dashboard-accent-hover: mix(#000000, $robbo-brand-primary, 8%);
+$robbo-dashboard-accent-dark: $robbo-brand-primary-dark;
 // Readable line length for the course list when the sidebar promo column is removed (~ former col-8 at xl).
 $robbo-dashboard-course-list-max-width: 976px;
 
@@ -167,13 +167,13 @@ $robbo-dashboard-course-list-max-width: 976px;
     .pgn__dropdown-item.dropdown-item {
       &:hover {
         color: $robbo-dashboard-accent-dark;
-        background-color: #eaf8ef;
+        background-color: $robbo-ui-primary-light-pressed;
       }
 
       &:focus,
       &:focus-visible {
         color: $robbo-dashboard-accent-dark;
-        background-color: #d1fae5;
+        background-color: $robbo-ui-primary-light;
         outline: none;
       }
 

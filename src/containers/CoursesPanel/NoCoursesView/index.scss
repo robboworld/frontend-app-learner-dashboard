@@ -1,9 +1,9 @@
 @import "@openedx/paragon/scss/core/core";
+@import '../../../sass/robbo-brand-tokens';
 
-// CTA «Каталог курсов»: обычный зелёный Robbo (как .btn-primary на дашборде).
-$robbo-empty-catalog-cta: #00b140;
-$robbo-empty-catalog-cta-hover: #009638;
-$robbo-empty-catalog-cta-active: #15803d;
+$robbo-empty-catalog-cta: $robbo-brand-primary;
+$robbo-empty-catalog-cta-hover: mix(#000000, $robbo-brand-primary, 8%);
+$robbo-empty-catalog-cta-active: $robbo-brand-primary-dark;
 
 #no-courses-content-view {
   border: 2px solid $light-400;

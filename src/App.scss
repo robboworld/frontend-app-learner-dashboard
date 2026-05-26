@@ -4,15 +4,18 @@
 @import "~@openedx/paragon/scss/core/core";
 @import "~@edx/brand/paragon/overrides";
 
+@import './sass/robbo-brand-fonts';
+@import './sass/robbo-brand-tokens';
+
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";
 
 $input-focus-box-shadow: $input-box-shadow; // hack to get upgrade to paragon 4.0.0 to work
 
 // Paragon portals (ModalDialog, etc.) mount under #paragon-portal-root — outside #dashboard-content.
-$robbo-portal-accent: #00b140;
-$robbo-portal-accent-hover: #009638;
-$robbo-portal-accent-dark: #15803d;
+$robbo-portal-accent: $robbo-brand-primary;
+$robbo-portal-accent-hover: mix(#000000, $robbo-brand-primary, 8%);
+$robbo-portal-accent-dark: $robbo-brand-primary-dark;
 
 .text-ellipsis {
   overflow: hidden;

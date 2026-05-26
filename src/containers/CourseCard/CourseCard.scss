@@ -6,12 +6,16 @@ $robbo-course-card-collapsed-max: map-get($grid-breakpoints, md) - 0.02px;
 $robbo-course-card-stacked-menu-size: 2.75rem; // Paragon btn-icon-md (44px)
 $robbo-course-card-stacked-padding: map-get($spacers, 3);
 $robbo-course-card-stacked-gap: map-get($spacers, 2);
+$robbo-course-card-desktop-image-width: 18.75rem; // 300px
+
 .course-card {
-  // Stacked layout tokens (overridable from Tutor / extra CSS on .course-card).
+  // Image frame tokens (overridable from Tutor / extra CSS on .course-card).
+  --robbo-course-card-image-radius: #{$card-image-border-radius};
+  --robbo-course-card-image-max-height: #{$card-image-vertical-max-height};
   --robbo-course-card-stacked-padding: #{$robbo-course-card-stacked-padding};
   --robbo-course-card-stacked-gap: #{$robbo-course-card-stacked-gap};
-  --robbo-course-card-stacked-image-max-height: #{$card-image-vertical-max-height};
-  --robbo-course-card-stacked-image-radius: #{$card-image-border-radius};
+  --robbo-course-card-stacked-image-radius: var(--robbo-course-card-image-radius);
+  --robbo-course-card-stacked-image-max-height: var(--robbo-course-card-image-max-height);
 
   .card {
     .course-card-main.d-flex {
@@ -21,6 +25,9 @@ $robbo-course-card-stacked-gap: map-get($spacers, 2);
         display: block;
         flex-shrink: 0;
         height: 100%;
+        max-width: $robbo-course-card-desktop-image-width;
+        min-width: $robbo-course-card-desktop-image-width;
+        width: $robbo-course-card-desktop-image-width;
 
         .pgn__card-image-cap {
           display: block;
@@ -68,29 +75,29 @@ $robbo-course-card-stacked-gap: map-get($spacers, 2);
         overflow: hidden;
         padding: 0;
         width: 100%;
-      }
 
-      .course-card-image-frame .pgn__card-wrapper-image-cap.horizontal {
-        border-radius: var(--robbo-course-card-stacked-image-radius);
-        display: block;
-        max-width: 100%;
-        min-width: 0;
-        overflow: hidden;
-        width: 100%;
-
-        &.overflow-visible {
-          overflow: hidden;
-        }
-
-        .pgn__card-image-cap {
-          border-radius: var(--robbo-course-card-stacked-image-radius) !important;
+        .pgn__card-wrapper-image-cap.horizontal {
+          border-radius: var(--robbo-course-card-stacked-image-radius);
           display: block;
-          margin: 0;
-          height: auto;
           max-width: 100%;
-          object-fit: contain;
-          object-position: center center;
+          min-width: 0;
+          overflow: hidden;
           width: 100%;
+
+          &.overflow-visible {
+            overflow: hidden;
+          }
+
+          .pgn__card-image-cap {
+            border-radius: var(--robbo-course-card-stacked-image-radius) !important;
+            display: block;
+            height: auto;
+            margin: 0;
+            max-width: 100%;
+            object-fit: contain;
+            object-position: center center;
+            width: 100%;
+          }
         }
       }
 

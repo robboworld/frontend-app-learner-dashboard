@@ -6,6 +6,7 @@
 
 @import './sass/robbo-brand-fonts';
 @import './sass/robbo-brand-tokens';
+@import './sass/robbo-paragon-focus';
 
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";
@@ -63,6 +64,13 @@ $robbo-portal-accent-dark: $robbo-brand-primary-dark;
     width: 100%;
     box-sizing: border-box;
   }
+
+  @include robbo-paragon-focus-rings;
+}
+
+// Paragon Sheet (course filters) portals into #sheet-root on <body>.
+#sheet-root {
+  @include robbo-paragon-focus-rings($robbo-portal-accent, $robbo-portal-accent-dark);
 }
 
 #paragon-portal-root {
@@ -75,18 +83,11 @@ $robbo-portal-accent-dark: $robbo-brand-primary-dark;
     overflow: hidden;
   }
 
-  // Paragon `button-focus`: синее кольцо — псевдоэлемент ::before. Убираем, чтобы не дублировать
-  // с нашим зелёным box-shadow на .btn-primary / .btn-tertiary.
-  .btn:focus,
-  .btn.focus,
-  .btn:focus-visible {
-    &::before {
-      display: none;
-    }
-  }
+  @include robbo-paragon-focus-rings($robbo-portal-accent, $robbo-portal-accent-dark);
 
   // Unenroll / survey modals: match dashboard Robbo green (primary in brand is blue).
-  .btn-primary {
+  .btn-primary,
+  .btn-brand {
     background-color: $robbo-portal-accent;
     border-color: $robbo-portal-accent;
 
@@ -95,28 +96,9 @@ $robbo-portal-accent-dark: $robbo-brand-primary-dark;
       border-color: $robbo-portal-accent-hover;
     }
 
-    &:focus,
-    &.focus,
-    &:focus-visible {
-      background-color: $robbo-portal-accent;
-      border-color: $robbo-portal-accent;
-      box-shadow: 0 0 0 0.2rem rgba($robbo-portal-accent-dark, 0.45);
-    }
-
     &:active:not(:disabled) {
       background-color: $robbo-portal-accent-dark;
       border-color: $robbo-portal-accent-dark;
-    }
-  }
-
-  // Tertiary: зелёная обводка только при фокусе (как .form-control), без постоянной рамки.
-  .btn-tertiary {
-    &:focus,
-    &.focus,
-    &:focus-visible {
-      border-color: $robbo-portal-accent;
-      box-shadow: 0 0 0 0.2rem rgba($robbo-portal-accent-dark, 0.35);
-      outline: none;
     }
   }
 
@@ -130,20 +112,5 @@ $robbo-portal-accent-dark: $robbo-brand-primary-dark;
         transparent 43%
       );
     }
-
-    &:focus,
-    &:focus-visible {
-      border-color: $robbo-portal-accent;
-
-      &::before {
-        border-color: $robbo-portal-accent;
-      }
-    }
-  }
-
-  .form-control:focus,
-  .form-control:focus-visible {
-    border-color: $robbo-portal-accent;
-    box-shadow: 0 0 0 0.2rem rgba($robbo-portal-accent-dark, 0.35);
   }
 }

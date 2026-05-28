@@ -8,5 +8,8 @@
   "robbo.header.user.dashboard": "Dashboard",
   "robbo.header.user.profile": "Profile",
   "robbo.header.user.account": "Account",
-  "robbo.header.user.signOut": "Sign Out"
+  "robbo.header.user.signOut": "Sign Out",
+  "robbo.confirmEmailBanner.prefix": "Remember to confirm your email address so you can continue learning!",
+  "robbo.confirmEmailBanner.confirmNow": "Confirm now",
+  "robbo.confirmEmailBanner.suffix": ". If you do not see the message in your inbox, check your spam folder."
 }

@@ -32,18 +32,18 @@ export const ConfirmEmailBanner = () => {
     <>
       <div className="confirm-email-page-banner">
         <PageBanner show={showPageBanner} dismissible onDismiss={closePageBanner}>
-          {formatMessage(messages.confirmEmailTextReminderBanner, {
-            confirmNowButton: (
-              <Button
-                className="confirm-email-now-button"
-                variant="link"
-                size="inline"
-                onClick={openConfirmModalButtonClick}
-              >
-                {formatMessage(messages.confirmNowButton)}
-              </Button>
-            ),
-          })}
+          <span className="confirm-email-banner-content">
+            {formatMessage(messages.confirmEmailBannerPrefix)}
+            {' '}
+            <Button
+              className="confirm-email-now-button"
+              variant="link"
+              size="inline"
+              onClick={openConfirmModalButtonClick}
+            >
+              {formatMessage(messages.confirmEmailBannerConfirmNow)}
+            </Button><span className="confirm-email-banner-suffix">{formatMessage(messages.confirmEmailBannerSuffix)}</span>
+          </span>
         </PageBanner>
       </div>
       <MarketingModal

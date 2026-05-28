@@ -73,7 +73,7 @@
   "Dashboard.NoCoursesView.exploreCoursesButton": "Каталог курсов",
   "Dashboard.NoCoursesView.bannerAlt": "Баннер «Нет курсов»",
   "leanerDashboard.confirmEmailBanner": "Подтвердить сейчас",
-  "leanerDashboard.confirmEmailTextReminderBanner": "Подтвердите email, чтобы продолжить обучение! {confirmNowButton}.",
+  "leanerDashboard.confirmEmailTextReminderBanner": "Не забудьте подтвердить свой адрес электронной почты, чтобы продолжить обучение!{confirmNowButton}. Если письма нет во входящих, проверьте папку «Спам».",
   "leanerDashboard.verifiedConfirmEmailButton": "Я подтвердил(а) email",
   "leanerDashboard.confirmEmailModalHeader": "Подтвердите email",
   "leanerDashboard.confirmEmailModalBody": "Мы отправили письмо для подтверждения. Проверьте почту и нажмите кнопку в письме.",

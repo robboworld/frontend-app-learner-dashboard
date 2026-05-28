@@ -1,15 +1,20 @@
 import { defineMessages } from '@edx/frontend-platform/i18n';
 
 const messages = defineMessages({
-  confirmNowButton: {
-    id: 'leanerDashboard.confirmEmailBanner',
-    description: 'Button for sending confirm email and open modal',
-    defaultMessage: 'Confirm Now',
+  confirmEmailBannerPrefix: {
+    id: 'robbo.confirmEmailBanner.prefix',
+    description: 'Robbo confirm-email banner text before the action link',
+    defaultMessage: 'Remember to confirm your email address so you can continue learning!',
   },
-  confirmEmailTextReminderBanner: {
-    id: 'leanerDashboard.confirmEmailTextReminderBanner',
-    description: 'Text for reminding user to confirm email',
-    defaultMessage: 'Remember to confirm your email so that you can keep learning! {confirmNowButton}.',
+  confirmEmailBannerConfirmNow: {
+    id: 'robbo.confirmEmailBanner.confirmNow',
+    description: 'Robbo confirm-email banner action link label',
+    defaultMessage: 'Confirm now',
+  },
+  confirmEmailBannerSuffix: {
+    id: 'robbo.confirmEmailBanner.suffix',
+    description: 'Robbo confirm-email banner text after the action link (starts with punctuation)',
+    defaultMessage: '. If you do not see the message in your inbox, check your spam folder.',
   },
   verifiedConfirmEmailButton: {
     id: 'leanerDashboard.verifiedConfirmEmailButton',

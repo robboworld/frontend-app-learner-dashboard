@@ -1,4 +1,13 @@
 .confirm-email-page-banner {
+  .pgn__pageBanner-content {
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .confirm-email-banner-content {
+    display: inline;
+  }
+
   .pgn__pageBanner-component.pgn__pageBanner__accentA {
     background-color: #9adf8f;
     color: #0b5d1e;
@@ -7,6 +16,13 @@
   .confirm-email-now-button {
     color: #ffffff !important;
     text-decoration: underline !important;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  .confirm-email-banner-suffix {
+    margin-left: 0;
+    padding-left: 0;
   }
 
   button[class*="dismiss"],

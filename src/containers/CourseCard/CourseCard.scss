@@ -111,6 +111,17 @@ $robbo-course-card-collapsed-max: map-get($grid-breakpoints, md) - 0.02px;
         right: 0;
       }
     }
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: box-shadow 200ms ease, transform 200ms ease;
+
+      @media (hover: hover) {
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+        }
+      }
+    }
   }
 
   .course-card-banners {

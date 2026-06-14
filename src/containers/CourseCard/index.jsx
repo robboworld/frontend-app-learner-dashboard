@@ -9,6 +9,7 @@ import CourseCardImage from './components/CourseCardImage';
 import CourseCardMenu from './components/CourseCardMenu';
 import CourseCardActions from './components/CourseCardActions';
 import CourseCardDetails from './components/CourseCardDetails';
+import CourseCardProgress from './components/CourseCardProgress';
 import CourseCardTitle from './components/CourseCardTitle';
 
 import './CourseCard.scss';
@@ -45,29 +46,23 @@ export const CourseCard = ({
             <Card.Body>
               <Card.Header
                 title={<CourseCardTitle cardId={cardId} />}
-                actions={isCollapsed ? null : courseCardMenu}
+                actions={courseCardMenu}
               />
               <Card.Section className="pt-0">
                 <CourseCardDetails cardId={cardId} />
+                <CourseCardProgress cardId={cardId} />
               </Card.Section>
-              <Card.Footer orientation={orientation}>
-                <CourseCardActions cardId={cardId} />
+              <Card.Footer className="course-card-footer" orientation={orientation}>
+                <div className="course-card-footer__row">
+                  <div className="course-card-footer__info">
+                    <CourseCardBanners cardId={cardId} />
+                  </div>
+                  <div className="course-card-footer__actions">
+                    <CourseCardActions cardId={cardId} />
+                  </div>
+                </div>
               </Card.Footer>
             </Card.Body>
-          </div>
-          <div
-            className={
-              isCollapsed
-                ? 'course-card-banners-wrap course-card-banners-wrap--stacked'
-                : 'course-card-banners-wrap'
-            }
-          >
-            <CourseCardBanners cardId={cardId} />
-            {isCollapsed ? (
-              <div className="course-card-banners__actions">
-                {courseCardMenu}
-              </div>
-            ) : null}
           </div>
         </div>
       </Card>

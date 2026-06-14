@@ -22,7 +22,7 @@ export const RelatedProgramsBanner = ({ cardId }) => {
   return (
     <Banner
       icon={Program}
-      className="bg-white border-top border-bottom mb-0 related-programs-banner"
+      className="mb-0 related-programs-banner"
     >
       <span className="font-weight-bolder">
         {formatMessage(messages.relatedPrograms)}

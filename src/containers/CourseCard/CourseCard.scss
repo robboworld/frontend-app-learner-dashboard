@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import "@openedx/paragon/scss/core/core";
 @import "../../sass/robbo-brand-tokens";
 
@@ -6,12 +8,18 @@ $robbo-course-card-collapsed-max: map-get($grid-breakpoints, md) - 0.02px;
 $robbo-course-card-stacked-menu-size: 2.75rem; // Paragon btn-icon-md (44px)
 $robbo-course-card-stacked-padding: map-get($spacers, 3);
 $robbo-course-card-stacked-gap: map-get($spacers, 2);
-$robbo-course-card-desktop-image-width: 18.75rem; // 300px
+$robbo-course-card-max-height: 14rem; // caps desktop row + stacked image
+$robbo-course-card-desktop-padding: map-get($spacers, 3);
+$robbo-course-card-desktop-padding-top: map-get($spacers, 2\.5);
+$robbo-course-card-desktop-image-ratio: math.div(16, 9);
 
 .course-card {
   // Image frame tokens (overridable from Tutor / extra CSS on .course-card).
   --robbo-course-card-image-radius: #{$card-image-border-radius};
-  --robbo-course-card-image-max-height: #{$card-image-vertical-max-height};
+  --robbo-course-card-max-height: #{$robbo-course-card-max-height};
+  --robbo-course-card-desktop-padding: #{$robbo-course-card-desktop-padding};
+  --robbo-course-card-desktop-padding-top: #{$robbo-course-card-desktop-padding-top};
+  --robbo-course-card-image-max-height: var(--robbo-course-card-max-height);
   --robbo-course-card-stacked-padding: #{$robbo-course-card-stacked-padding};
   --robbo-course-card-stacked-gap: #{$robbo-course-card-stacked-gap};
   --robbo-course-card-stacked-image-radius: var(--robbo-course-card-image-radius);
@@ -19,33 +27,112 @@ $robbo-course-card-desktop-image-width: 18.75rem; // 300px
 
   .card {
     border-radius: 10px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.06), 0 0 12px rgba(0, 0, 0, 0.08);
     overflow: hidden;
+
+    .course-card-title-wrap {
+      min-width: 0;
+    }
 
     .course-card-main.d-flex {
       align-items: stretch;
+      max-height: var(--robbo-course-card-max-height);
 
       > .pgn__card-wrapper-image-cap.horizontal {
-        display: block;
-        flex-shrink: 0;
-        height: 100%;
-        max-width: $robbo-course-card-desktop-image-width;
-        min-width: $robbo-course-card-desktop-image-width;
-        width: $robbo-course-card-desktop-image-width;
+        align-items: stretch;
+        align-self: stretch;
+        aspect-ratio: $robbo-course-card-desktop-image-ratio;
+        display: flex;
+        flex: 0 0 auto;
+        height: auto;
+        justify-content: center;
+        max-height: none;
+        max-width: none;
+        min-height: 0;
+        min-width: 0;
+        overflow: hidden;
+        width: auto;
 
         .pgn__card-image-cap {
-          display: block;
-          height: 100%;
-          width: 100%;
-          max-width: none;
-          object-fit: cover;
           border-radius: $card-image-border-radius 0 0 $card-image-border-radius;
+          display: block;
+          flex: 1 1 auto;
+          height: 100%;
+          max-height: 100%;
+          max-width: 100%;
+          min-height: 0;
+          min-width: 0;
+          object-fit: cover;
+          object-position: center;
+          width: 100%;
+
+          &.course-card-image-cap--placeholder {
+            object-fit: contain;
+            padding: 0.75rem;
+          }
         }
       }
 
       .pgn__card-body {
+        display: flex;
         flex: 1;
+        flex-direction: column;
+        justify-content: flex-start;
+        max-height: var(--robbo-course-card-max-height);
+        min-height: 0;
         min-width: 0;
+        padding: var(--robbo-course-card-desktop-padding-top)
+          var(--robbo-course-card-desktop-padding)
+          var(--robbo-course-card-desktop-padding);
+      }
+
+      .pgn__card-header-title-md {
+        h3 {
+          margin-bottom: map-get($spacers, 1);
+        }
+      }
+
+      .pgn__card-header {
+        align-items: flex-start;
+        flex-shrink: 0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .pgn__card-header-actions {
+        flex-shrink: 0;
+        margin: 0;
+
+        .btn,
+        .btn-icon {
+          margin: 0;
+        }
+      }
+
+      .pgn__card-header-content {
+        margin-top: 0;
+      }
+
+      .pgn__card-section.pt-0 {
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .pgn__card-footer.course-card-footer {
+        align-items: flex-end;
+        flex-shrink: 0;
+        justify-content: flex-start;
+        margin: 0;
+        margin-top: auto;
+        padding: 0;
+        width: 100%;
+
+        &.horizontal,
+        &.vertical {
+          padding: 0;
+        }
       }
     }
 
@@ -64,8 +151,9 @@ $robbo-course-card-desktop-image-width: 18.75rem; // 300px
       }
 
       .course-card-image-row__media {
-        aspect-ratio: 4 / 3;
+        aspect-ratio: $robbo-course-card-desktop-image-ratio;
         border-radius: var(--robbo-course-card-stacked-image-radius);
+        max-height: var(--robbo-course-card-stacked-image-max-height);
         min-width: 0;
         overflow: hidden;
         width: 100%;
@@ -82,9 +170,11 @@ $robbo-course-card-desktop-image-width: 18.75rem; // 300px
         width: 100%;
 
         .pgn__card-wrapper-image-cap.horizontal {
+          align-items: center;
           border-radius: var(--robbo-course-card-stacked-image-radius);
-          display: block;
+          display: flex;
           height: 100%;
+          justify-content: center;
           max-width: 100%;
           min-width: 0;
           overflow: hidden;
@@ -99,34 +189,19 @@ $robbo-course-card-desktop-image-width: 18.75rem; // 300px
             display: block;
             height: 100%;
             margin: 0;
+            max-height: 100%;
             max-width: 100%;
-            object-fit: cover;
-            object-position: center top;
+            min-height: 0;
+            min-width: 0;
+            object-fit: contain;
+            object-position: center;
             width: 100%;
+
+            &.course-card-image-cap--placeholder {
+              padding: 0.75rem;
+            }
           }
         }
-      }
-
-      .course-card-banners-wrap--stacked {
-        position: relative;
-      }
-
-      .course-card-banners-wrap--stacked .course-card-banners__actions {
-        inset-inline-end: map-get($spacers, 3);
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: $robbo-course-card-stacked-menu-size;
-        z-index: 1;
-      }
-
-      .course-card-banners-wrap--stacked .course-card-banners > .alert:last-of-type {
-        align-items: center;
-        display: flex;
-        min-height: $robbo-course-card-stacked-menu-size;
-        padding-inline-end: calc(
-          #{map-get($spacers, 3)} + #{$robbo-course-card-stacked-menu-size} + #{map-get($spacers, 2)}
-        );
       }
 
       .course-card-main--stacked .pgn__card-body {
@@ -159,6 +234,29 @@ $robbo-course-card-desktop-image-width: 18.75rem; // 300px
       .course-card-main--stacked .pgn__card-section.pt-0 {
         padding-inline: 0;
         padding-top: map-get($spacers, 2);
+      }
+
+      .course-card-main--stacked .course-card-footer {
+        padding-inline: 0;
+      }
+
+      .course-card-main--stacked .course-card-footer__row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .course-card-main--stacked .course-card-footer__actions {
+        width: 100%;
+
+        .pgn__action-row {
+          justify-content: stretch;
+          width: 100%;
+
+          > .btn,
+          > a.btn {
+            width: 100%;
+          }
+        }
       }
 
       .course-card-main--stacked .pgn__card-footer.vertical {
@@ -196,10 +294,6 @@ $robbo-course-card-desktop-image-width: 18.75rem; // 300px
       overflow: visible;
     }
 
-    .pgn__card-header-content {
-      margin-top: 1.5rem;
-    }
-
     .pgn__card-footer {
       flex-wrap: nowrap;
 
@@ -207,9 +301,38 @@ $robbo-course-card-desktop-image-width: 18.75rem; // 300px
         flex-direction: column;
       }
 
+      .course-card-footer__row {
+        align-items: flex-end;
+        display: flex;
+        flex-wrap: wrap;
+        gap: map-get($spacers, 2);
+        justify-content: flex-end;
+        min-width: 0;
+        width: 100%;
+      }
+
+      .course-card-footer__info {
+        flex: 1 1 auto;
+        margin-right: auto;
+        min-width: 0;
+
+        &:not(:has(.alert)) {
+          display: none;
+        }
+      }
+
+      .course-card-footer__actions {
+        flex: 0 0 auto;
+        margin: 0;
+      }
+
       .pgn__action-row {
         align-self: flex-end;
+        flex-grow: 0;
+        justify-content: flex-end;
+        margin: 0;
         white-space: nowrap;
+        width: auto;
       }
     }
 
@@ -235,14 +358,32 @@ $robbo-course-card-desktop-image-width: 18.75rem; // 300px
   }
 
   .course-card-banners {
-    > .alert {
-      border-radius: 0;
-      box-shadow: none;
-      padding: map-get($spacers, 3) map-get($spacers, 4);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: map-get($spacers, 2);
+    min-width: 0;
 
-      &:last-of-type {
-        border-bottom-left-radius: $alert-border-radius;
-        border-bottom-right-radius: $alert-border-radius;
+    .alert {
+      border-radius: 8px;
+      box-shadow: none;
+      display: inline-flex;
+      flex: 0 1 auto;
+      font-size: 0.8125rem;
+      line-height: 1.35;
+      margin: 0;
+      max-width: 100%;
+      padding: map-get($spacers, 1) map-get($spacers, 2);
+      width: auto;
+
+      .pgn__alert-icon {
+        flex-shrink: 0;
+        margin-top: 0;
+      }
+
+      .pgn__alert-content {
+        min-width: 0;
       }
     }
 

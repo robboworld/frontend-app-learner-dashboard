@@ -1,0 +1,36 @@
+/**
+ * Copyright (C) 2026 Robbo <https://robbo.ru>
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * Part of the Robbo Open edX distribution. See NOTICE at repository root.
+ */
+@import "../../../../sass/robbo-brand-tokens";
+
+.course-card-status {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-bottom: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  text-transform: uppercase;
+
+  &--not-started {
+    background: #f3f4f6;
+    border-radius: 4px;
+    color: #6b7280;
+  }
+
+  &--in-progress {
+    background: rgba($robbo-brand-primary, 0.12);
+    border-radius: 4px;
+    color: $robbo-brand-primary-dark;
+  }
+
+  &--completed {
+    background: $robbo-brand-primary;
+    border-radius: 4px;
+    color: #fff;
+  }
+}

@@ -29,6 +29,7 @@ export const courseCard = StrictDict({
     cardSimpleSelectors.course,
     (course) => ({
       bannerImgSrc: baseAppUrl(course.bannerImgSrc),
+      bannerImgIsPlaceholder: Boolean(course.bannerImgIsPlaceholder),
       courseNumber: course.courseNumber,
       courseName: course.courseName,
       socialShareUrl: course.socialShareUrl,
@@ -55,6 +56,8 @@ export const courseCard = StrictDict({
 
       progressUrl: baseAppUrl(courseRun.progressUrl),
       resumeUrl: baseAppUrl(courseRun.resumeUrl), // resume will route this to learning mfe.
+      resumeBlockTitle: courseRun.resumeBlockTitle || null,
+      progress: courseRun.progress || null,
       unenrollUrl: baseAppUrl(courseRun.unenrollUrl),
     }),
   ),
@@ -132,7 +135,7 @@ export const courseCard = StrictDict({
   ),
   gradeData: mkCardSelector(
     cardSimpleSelectors.gradeData,
-    (gradeData) => ({ isPassing: gradeData.isPassing }),
+    (gradeData) => ({ isPassing: gradeData?.isPassing ?? false }),
   ),
   relatedPrograms: mkCardSelector(
     cardSimpleSelectors.relatedPrograms,

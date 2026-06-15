@@ -40,6 +40,8 @@ export const useCardDetailsData = ({ cardId }) => {
   const { formatMessage } = useIntl();
   const providerName = reduxHooks.useCardProviderData(cardId).name;
   const { courseNumber } = reduxHooks.useCardCourseData(cardId);
+  const { hasStarted } = reduxHooks.useCardEnrollmentData(cardId);
+  const { resumeBlockTitle } = reduxHooks.useCardCourseRunData(cardId);
   const {
     isEntitlement,
     isFulfilled,
@@ -48,9 +50,14 @@ export const useCardDetailsData = ({ cardId }) => {
 
   const openSessionModal = reduxHooks.useUpdateSelectSessionModalCallback(cardId);
 
+  const resumeMessage = hasStarted && resumeBlockTitle
+    ? formatMessage(messages.pausedAt, { title: resumeBlockTitle })
+    : null;
+
   return {
     providerName: providerName || formatMessage(messages.unknownProviderName),
     accessMessage: hooks.useAccessMessage({ cardId }),
+    resumeMessage,
     isEntitlement,
     isFulfilled,
     canChange,

@@ -6,9 +6,7 @@ exports[`CourseCard Details component does not have change session button on reg
     class="small"
     data-testid="CourseCardDetails"
   >
-    provider-name
-     • 
-    test-course-number
+    resume-message
      • access-message
   </span>
 </div>
@@ -20,9 +18,7 @@ exports[`CourseCard Details component has change session button on entitlement c
     class="small"
     data-testid="CourseCardDetails"
   >
-    provider-name
-     • 
-    test-course-number
+    resume-message
      • access-message
      • 
     <button
@@ -41,9 +37,7 @@ exports[`CourseCard Details component has change session button on entitlement c
     class="small"
     data-testid="CourseCardDetails"
   >
-    provider-name
-     • 
-    test-course-number
+    resume-message
      • 
     <button
       class="m-0 p-0"

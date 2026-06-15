@@ -8,30 +8,40 @@ import './index.scss';
 
 export const CourseCardDetails = ({ cardId }) => {
   const {
-    providerName,
+    resumeMessage,
     accessMessage,
     isEntitlement,
     isFulfilled,
     canChange,
     openSessionModal,
-    courseNumber,
     changeOrLeaveSessionMessage,
   } = useCardDetailsData({ cardId });
 
+  const showResumeMessage = resumeMessage;
+  const showAccessMessage = !(isEntitlement && !isFulfilled) && accessMessage;
+  const showSessionButton = isEntitlement && isFulfilled && canChange;
+  const textItems = [showResumeMessage, showAccessMessage].filter(Boolean);
+
+  if (textItems.length === 0 && !showSessionButton) {
+    return null;
+  }
+
   return (
     <span className="small" data-testid="CourseCardDetails">
-      {providerName} • {courseNumber}
-      {!(isEntitlement && !isFulfilled) && accessMessage && (
-        ` • ${accessMessage}`
-      )}
-      {isEntitlement && isFulfilled && canChange ? (
+      {textItems.map((item, index) => (
+        <React.Fragment key={item}>
+          {index > 0 && ' • '}
+          {item}
+        </React.Fragment>
+      ))}
+      {showSessionButton && (
         <>
-          {' • '}
+          {textItems.length > 0 && ' • '}
           <Button variant="link" size="inline" className="m-0 p-0" onClick={openSessionModal}>
             {changeOrLeaveSessionMessage}
           </Button>
         </>
-      ) : null}
+      )}
     </span>
   );
 };

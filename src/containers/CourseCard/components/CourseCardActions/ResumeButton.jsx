@@ -11,7 +11,7 @@ import messages from './messages';
 
 export const ResumeButton = ({ cardId }) => {
   const { formatMessage } = useIntl();
-  const { resumeUrl, resumeBlockTitle } = reduxHooks.useCardCourseRunData(cardId);
+  const { resumeUrl } = reduxHooks.useCardCourseRunData(cardId);
   const execEdTrackingParam = reduxHooks.useCardExecEdTrackingParam(cardId);
   const { disableResumeCourse } = useActionDisabledState(cardId);
 
@@ -20,18 +20,14 @@ export const ResumeButton = ({ cardId }) => {
     cardId,
     resumeUrl + execEdTrackingParam,
   );
-  const buttonLabel = resumeBlockTitle
-    ? formatMessage(messages.resumeWithTitle, { title: resumeBlockTitle })
-    : formatMessage(messages.resume);
   return (
     <ActionButton
       disabled={disableResumeCourse}
       as="a"
       href="#"
       onClick={handleClick}
-      title={resumeBlockTitle || undefined}
     >
-      {buttonLabel}
+      {formatMessage(messages.resume)}
     </ActionButton>
   );
 };

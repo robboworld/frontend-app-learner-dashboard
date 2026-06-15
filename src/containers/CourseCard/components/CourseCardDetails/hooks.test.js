@@ -47,7 +47,7 @@ describe('CourseCardDetails hooks', () => {
       canChange: false,
       hasSessions: false,
     };
-    const runHook = ({ provider = {}, entitlement = {} }) => {
+    const runHook = ({ provider = {}, entitlement = {}, enrollment = {}, courseRun = {} }) => {
       jest.spyOn(hooks, hookKeys.useAccessMessage)
         .mockImplementationOnce(mockAccessMessage);
       reduxHooks.useCardProviderData.mockReturnValueOnce({
@@ -59,6 +59,14 @@ describe('CourseCardDetails hooks', () => {
         ...entitlement,
       });
       reduxHooks.useCardCourseData.mockReturnValueOnce({ courseNumber });
+      reduxHooks.useCardEnrollmentData.mockReturnValueOnce({
+        hasStarted: false,
+        ...enrollment,
+      });
+      reduxHooks.useCardCourseRunData.mockReturnValueOnce({
+        resumeBlockTitle: null,
+        ...courseRun,
+      });
       out = hooks.useCardDetailsData({ cardId });
     };
     beforeEach(() => {
@@ -74,6 +82,20 @@ describe('CourseCardDetails hooks', () => {
     });
     it('forward changeOrLeaveSessionMessage', () => {
       expect(out.changeOrLeaveSessionMessage).toEqual(formatMessage(messages.changeOrLeaveSessionButton));
+    });
+    it('returns resumeMessage when learner has started and resume block title exists', () => {
+      runHook({
+        enrollment: { hasStarted: true },
+        courseRun: { resumeBlockTitle: 'Lesson 3' },
+      });
+      expect(out.resumeMessage).toEqual(formatMessage(messages.pausedAt, { title: 'Lesson 3' }));
+    });
+    it('returns null resumeMessage when learner has not started', () => {
+      runHook({
+        enrollment: { hasStarted: false },
+        courseRun: { resumeBlockTitle: 'Lesson 3' },
+      });
+      expect(out.resumeMessage).toEqual(null);
     });
   });
 

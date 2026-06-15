@@ -125,6 +125,7 @@
   "learner-dash.courseCard.CourseCardDetails.courseStarts": "Курс с {startDate}",
   "learner-dash.courseCard.CourseCardDetails.unknownProviderName": "Неизвестно",
   "learner-dash.courseCard.CourseCardDetails.changeOrLeaveSessionButton": "Сменить или покинуть сессию",
+  "learner-dash.courseCard.CourseCardDetails.pausedAt": "Вы остановились на: {title}",
   "learner-dash.courseCardMenu.unenroll": "Отписаться",
   "learner-dash.courseCardMenu.dropdownAlt": "Меню действий по курсу",
   "learner-dash.courseCardMenu.emailSettings": "Настройки писем",

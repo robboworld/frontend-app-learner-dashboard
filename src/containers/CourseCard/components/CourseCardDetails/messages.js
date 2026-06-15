@@ -36,6 +36,11 @@ const messages = defineMessages({
     description: 'Button for trigger change or leave session for entitlement course',
     defaultMessage: 'Change or leave session',
   },
+  pausedAt: {
+    id: 'learner-dash.courseCard.CourseCardDetails.pausedAt',
+    description: 'Message showing where the learner paused in the course',
+    defaultMessage: 'You paused at: {title}',
+  },
 });
 
 export default messages;

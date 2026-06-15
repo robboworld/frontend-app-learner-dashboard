@@ -24,11 +24,34 @@ $robbo-course-card-desktop-image-ratio: math.div(16, 9);
   --robbo-course-card-stacked-gap: #{$robbo-course-card-stacked-gap};
   --robbo-course-card-stacked-image-radius: var(--robbo-course-card-image-radius);
   --robbo-course-card-stacked-image-max-height: var(--robbo-course-card-image-max-height);
+  // Match LMS catalog card tokens (`_robbo-courses-catalog.scss`).
+  --robbo-course-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.05);
+  --robbo-course-card-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.1);
+  --robbo-course-card-transition: 0.2s ease;
 
   .card {
     border-radius: 10px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.06), 0 0 12px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--robbo-course-card-shadow);
     overflow: hidden;
+    transition:
+      box-shadow var(--robbo-course-card-transition),
+      transform var(--robbo-course-card-transition);
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      &:hover,
+      &:focus-within {
+        transform: none;
+      }
+    }
+
+    &:hover,
+    &:focus-within {
+      box-shadow: var(--robbo-course-card-shadow-hover);
+      // Dashboard enrollments — same lift as catalog `.stub--course.is-enrolled`.
+      transform: translateY(-2px);
+    }
 
     .course-card-title-wrap {
       min-width: 0;
@@ -353,17 +376,6 @@ $robbo-course-card-desktop-image-ratio: math.div(16, 9);
         position: absolute;
         top: 0;
         right: 0;
-      }
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      transition: box-shadow 200ms ease, transform 200ms ease;
-
-      @media (hover: hover) {
-        &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
-        }
       }
     }
   }

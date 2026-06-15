@@ -11,5 +11,15 @@
   "robbo.header.user.signOut": "Выйти",
   "robbo.confirmEmailBanner.prefix": "Не забудьте подтвердить свой адрес электронной почты, чтобы продолжить обучение!",
   "robbo.confirmEmailBanner.confirmNow": "Подтвердить сейчас",
-  "robbo.confirmEmailBanner.suffix": ". Если письма нет во входящих, проверьте папку «Спам»."
+  "robbo.confirmEmailBanner.suffix": ". Если письма нет во входящих, проверьте папку «Спам».",
+  "learner-dash.courseCard.actions.beginCourse": "Начать курс",
+  "learner-dash.courseCard.actions.resume": "Продолжить",
+  "learner-dash.courseCard.actions.resumeWithTitle": "Продолжить: {title}",
+  "learner-dash.courseCard.actions.viewCourse": "Открыть курс",
+  "learner-dash.courseCard.progress.aria": "Прогресс курса",
+  "learner-dash.courseCard.progress.unitsCount": "{completed} из {total} юнитов пройдено",
+  "learner-dash.courseCard.status.notStarted": "Не начат",
+  "learner-dash.courseCard.status.inProgress": "В процессе",
+  "learner-dash.courseCard.status.completed": "Завершён",
+  "learner-dash.courseCard.CourseCardDetails.pausedAt": "Вы остановились на: {title}"
 }

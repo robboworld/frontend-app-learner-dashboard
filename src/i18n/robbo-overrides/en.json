@@ -11,5 +11,15 @@
   "robbo.header.user.signOut": "Sign Out",
   "robbo.confirmEmailBanner.prefix": "Remember to confirm your email address so you can continue learning!",
   "robbo.confirmEmailBanner.confirmNow": "Confirm now",
-  "robbo.confirmEmailBanner.suffix": ". If you do not see the message in your inbox, check your spam folder."
+  "robbo.confirmEmailBanner.suffix": ". If you do not see the message in your inbox, check your spam folder.",
+  "learner-dash.courseCard.actions.beginCourse": "Begin course",
+  "learner-dash.courseCard.actions.resume": "Resume",
+  "learner-dash.courseCard.actions.resumeWithTitle": "Resume: {title}",
+  "learner-dash.courseCard.actions.viewCourse": "View course",
+  "learner-dash.courseCard.progress.aria": "Course progress",
+  "learner-dash.courseCard.progress.unitsCount": "{completed} of {total} units completed",
+  "learner-dash.courseCard.status.notStarted": "Not started",
+  "learner-dash.courseCard.status.inProgress": "In progress",
+  "learner-dash.courseCard.status.completed": "Completed",
+  "learner-dash.courseCard.CourseCardDetails.pausedAt": "You stopped at: {title}"
 }

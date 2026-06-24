@@ -65,25 +65,18 @@ exports[`CourseFilterControls mobile snapshot 1`] = `
     Refine
   </Button>
   <Form>
-    <Sheet
-      className="w-75"
+    <ModalPopup
+      isOpen={false}
       onClose={[MockFunction close]}
-      position="left"
-      show={false}
+      placement="bottom-end"
+      positionRef="test-target"
     >
       <div
-        className="robbo-course-filter-sheet-content"
+        className="bg-white p-3 rounded shadow d-flex flex-column robbo-course-filter-card--stacked"
+        id="course-filter-controls-card"
       >
         <div
-          className="p-1 mr-3"
-        >
-          <b>
-            Refine
-          </b>
-        </div>
-        <hr />
-        <div
-          className="filter-form-row"
+          className="filter-form-col"
         >
           <FilterForm
             filters={
@@ -94,28 +87,19 @@ exports[`CourseFilterControls mobile snapshot 1`] = `
             handleFilterChange={[MockFunction handleFilterChange]}
           />
         </div>
+        <hr
+          className="w-100 bg-primary-200 my-3 mx-0"
+        />
         <div
-          className="filter-form-row text-left m-1"
+          className="filter-form-col text-left m-1"
         >
           <SortForm
             handleSortChange={[MockFunction handleSortChange]}
             sortBy="test-sort-by"
           />
         </div>
-        <div
-          className="pgn__modal-close-container"
-        >
-          <ModalCloseButton
-            onClick={[MockFunction close]}
-            variant="tertiary"
-          >
-            <Icon
-              src={[MockFunction icons.Close]}
-            />
-          </ModalCloseButton>
-        </div>
       </div>
-    </Sheet>
+    </ModalPopup>
   </Form>
 </div>
 `;

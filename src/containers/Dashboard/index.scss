@@ -79,6 +79,9 @@ $robbo-dashboard-course-list-max-width: 976px;
   .btn-primary {
     background-color: $robbo-dashboard-accent;
     border-color: $robbo-dashboard-accent;
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease;
 
     &:hover:not(:disabled) {
       background-color: $robbo-dashboard-accent-hover;

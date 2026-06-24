@@ -1,5 +1,8 @@
 @import "@openedx/paragon/scss/core/core";
 
+$robbo-card-enter-duration: 220ms;
+$robbo-card-stagger-step: 50ms;
+
 .course-list-heading-container {
   display: flex;
   flex-direction: row;
@@ -52,5 +55,33 @@
     margin: map-get($spacers, 2) 0;
     flex: 1 1 auto;
     min-width: 0;
+  }
+}
+
+
+@keyframes robbo-course-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.course-list-container .course-card {
+  animation: robbo-course-card-enter $robbo-card-enter-duration ease-out backwards;
+
+  @for $i from 1 through 8 {
+    &:nth-child(#{$i}) {
+      animation-delay: ($i - 1) * $robbo-card-stagger-step;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-list-container .course-card {
+    animation: none;
   }
 }

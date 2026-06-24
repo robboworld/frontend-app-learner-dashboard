@@ -1,13 +1,121 @@
 @import '../../sass/robbo-brand-tokens';
 
-// Paragon <Sheet /> portals into #sheet-root on body, so #course-filter-controls
-// descendant selectors in Dashboard/index.scss do not reach these controls.
 $robbo-course-filter-accent: $robbo-brand-primary;
 $robbo-course-filter-check-svg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3 6-6'/%3e%3c/svg%3e");
 $robbo-course-filter-indeterminate-svg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
 
-#sheet-root .robbo-course-filter-sheet-content {
+$robbo-filter-row-enter-duration: 180ms;
+$robbo-filter-row-stagger-start: 80ms;
+$robbo-filter-row-stagger-step: 45ms;
+
+@keyframes robbo-filter-popup-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes robbo-filter-row-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes robbo-filter-check-pop {
+  0% { background-size: 0 0; }
+  70% { background-size: 14px 14px; }
+  100% { background-size: 12px 12px; }
+}
+
+@keyframes robbo-filter-radio-dot-pop {
+  0% { background-size: 0 0; }
+  70% { background-size: 130% 130%; }
+  100% { background-size: 100% 100%; }
+}
+
+#course-filter-controls-card {
+  animation: robbo-filter-popup-enter 220ms ease-out;
+  width: 512px;
+  height: 288px;
+
+  &.no-enrollments {
+    height: 172px;
+  }
+
+  &.robbo-course-filter-card--stacked {
+    width: min(20rem, calc(100vw - 1.5rem));
+    height: auto;
+
+    &.no-enrollments {
+      height: auto;
+    }
+
+    hr {
+      width: 100%;
+      height: 1px;
+    }
+
+    .filter-form-col {
+      width: 100%;
+    }
+  }
+
+  .filter-form-heading {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  hr {
+    width: 1px;
+  }
+
+  .filter-form-col {
+    width: 256px;
+    display: inline-block;
+    text-align: left;
+  }
+
+  .pgn__form-checkbox-input,
   .pgn__form-radio-input {
+    position: relative;
+    transition: background-color 160ms ease, border-color 160ms ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -0.375rem;
+      right: -0.375rem;
+      bottom: -0.375rem;
+      left: -0.375rem;
+      border: 0.125rem solid $robbo-course-filter-accent;
+      border-radius: 0.0625rem;
+      opacity: 0;
+      transform: scale(0.88);
+      transition: opacity 160ms ease, transform 160ms ease, border-color 160ms ease;
+      pointer-events: none;
+    }
+
+    &:focus,
+    &:focus-visible {
+      border-color: $robbo-course-filter-accent;
+      outline: none;
+      box-shadow: none;
+
+      &::before {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  .pgn__form-radio-input {
+    &::before {
+      border-radius: 50%;
+    }
+
     &:checked {
       border-color: $robbo-course-filter-accent;
       background-color: #fff;
@@ -16,15 +124,10 @@ $robbo-course-filter-indeterminate-svg: url("data:image/svg+xml,%3csvg xmlns='ht
         $robbo-course-filter-accent 42%,
         transparent 43%
       );
-    }
-
-    &:focus,
-    &:focus-visible {
-      border-color: $robbo-course-filter-accent;
-
-      &::before {
-        border-color: $robbo-course-filter-accent;
-      }
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      animation: robbo-filter-radio-dot-pop 180ms ease-out;
     }
   }
 
@@ -36,6 +139,7 @@ $robbo-course-filter-indeterminate-svg: url("data:image/svg+xml,%3csvg xmlns='ht
       background-position: center;
       background-repeat: no-repeat;
       background-size: 12px 12px;
+      animation: robbo-filter-check-pop 180ms ease-out;
     }
 
     &:indeterminate {
@@ -46,49 +150,74 @@ $robbo-course-filter-indeterminate-svg: url("data:image/svg+xml,%3csvg xmlns='ht
       background-repeat: no-repeat;
       background-size: 12px 12px;
     }
+  }
 
-    &:focus,
-    &:focus-visible {
-      border-color: $robbo-course-filter-accent;
+  .filter-form-heading,
+  .pgn__form-checkbox,
+  .pgn__form-radio {
+    animation: robbo-filter-row-enter $robbo-filter-row-enter-duration ease-out backwards;
+  }
 
-      &::before {
-        border-color: $robbo-course-filter-accent;
-      }
+  .filter-form-col:first-child .filter-form-heading {
+    animation-delay: $robbo-filter-row-stagger-start;
+  }
+
+  @for $i from 1 through 5 {
+    .filter-form-col:first-child .pgn__form-checkbox:nth-child(#{$i}) {
+      animation-delay: $robbo-filter-row-stagger-start + $i * $robbo-filter-row-stagger-step;
     }
   }
 
-  .filter-form-heading {
-    font-weight: bold;
-    font-size: 18px;
+  .filter-form-col:last-child .filter-form-heading {
+    animation-delay: $robbo-filter-row-stagger-start;
+  }
+
+  @for $i from 1 through 2 {
+    .filter-form-col:last-child .pgn__form-radio:nth-child(#{$i}) {
+      animation-delay: $robbo-filter-row-stagger-start + $i * $robbo-filter-row-stagger-step;
+    }
   }
 }
 
-.pgn__sheet-component {
-  max-width: 75% !important;
-  width: 75% !important;
+@media (prefers-reduced-motion: reduce) {
+  #course-filter-controls-card {
+    animation: none;
+  }
 
-  .filter-form-heading {
-    font-weight: bold;
-    font-size: 18px;
+  #course-filter-controls-card .filter-form-heading,
+  #course-filter-controls-card .pgn__form-checkbox,
+  #course-filter-controls-card .pgn__form-radio {
+    animation: none;
   }
-}
-#course-filter-controls-card {
-  width: 512px;
-  height: 288px;
-  &.no-enrollments {
-    height: 172px;
+
+  #course-filter-controls-card .pgn__form-checkbox-input:checked,
+  #course-filter-controls-card .pgn__form-radio-input:checked {
+    animation: none;
   }
-  .filter-form-heading {
-    font-weight: bold;
-    font-size: 18px;
-  }
-  hr {
-    width: 1px;
-  };
-  .filter-form-col {
-    width: 256px;
-    display: inline-block;
-    text-align: left;
+
+  #course-filter-controls-card .pgn__form-checkbox-input::before,
+  #course-filter-controls-card .pgn__form-radio-input::before {
+    transition: none;
   }
 }
 
+#course-list-active-filters .pgn__chip {
+  animation: robbo-chip-enter 180ms ease-out backwards;
+
+  @for $i from 1 through 6 {
+    &:nth-child(#{$i}) {
+      animation-delay: ($i - 1) * 40ms;
+    }
+  }
+}
+
+@keyframes robbo-chip-enter {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #course-list-active-filters .pgn__chip {
+    animation: none;
+  }
+}

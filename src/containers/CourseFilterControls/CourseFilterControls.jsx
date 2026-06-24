@@ -5,14 +5,11 @@ import { useIntl } from '@edx/frontend-platform/i18n';
 import {
   Button,
   Form,
-  Icon,
   ModalPopup,
-  Sheet,
   breakpoints,
   useWindowSize,
-  ModalCloseButton,
 } from '@openedx/paragon';
-import { Close, Tune } from '@openedx/paragon/icons';
+import { Tune } from '@openedx/paragon/icons';
 
 import { reduxHooks } from 'hooks';
 
@@ -57,53 +54,34 @@ export const CourseFilterControls = ({
         {formatMessage(messages.refine)}
       </Button>
       <Form>
-        {isMobile
-          ? (
-            <Sheet
-              className="w-75"
-              position="left"
-              show={isOpen}
-              onClose={close}
-            >
-              <div className="robbo-course-filter-sheet-content">
-                <div className="p-1 mr-3">
-                  <b>{formatMessage(messages.refine)}</b>
-                </div>
-                <hr />
-                <div className="filter-form-row">
-                  <FilterForm {...{ filters, handleFilterChange }} />
-                </div>
-                <div className="filter-form-row text-left m-1">
-                  <SortForm {...{ sortBy, handleSortChange }} />
-                </div>
-                <div className="pgn__modal-close-container">
-                  <ModalCloseButton variant="tertiary" onClick={close}>
-                    <Icon src={Close} />
-                  </ModalCloseButton>
-                </div>
-              </div>
-            </Sheet>
-          ) : (
-            <ModalPopup
-              positionRef={target}
-              isOpen={isOpen}
-              onClose={close}
-              placement="bottom-end"
-            >
-              <div
-                id="course-filter-controls-card"
-                className="bg-white p-3 rounded shadow d-flex flex-row"
-              >
-                <div className="filter-form-col">
-                  <FilterForm {...{ filters, handleFilterChange }} />
-                </div>
-                <hr className="h-100 bg-primary-200 mx-3 my-0" />
-                <div className="filter-form-col text-left m-1">
-                  <SortForm {...{ sortBy, handleSortChange }} />
-                </div>
-              </div>
-            </ModalPopup>
-          )}
+        <ModalPopup
+          positionRef={target}
+          isOpen={isOpen}
+          onClose={close}
+          placement="bottom-end"
+        >
+          <div
+            id="course-filter-controls-card"
+            className={[
+              'bg-white p-3 rounded shadow d-flex',
+              isMobile ? 'flex-column robbo-course-filter-card--stacked' : 'flex-row',
+            ].join(' ')}
+          >
+            <div className="filter-form-col">
+              <FilterForm {...{ filters, handleFilterChange }} />
+            </div>
+            <hr
+              className={
+                isMobile
+                  ? 'w-100 bg-primary-200 my-3 mx-0'
+                  : 'h-100 bg-primary-200 mx-3 my-0'
+              }
+            />
+            <div className="filter-form-col text-left m-1">
+              <SortForm {...{ sortBy, handleSortChange }} />
+            </div>
+          </div>
+        </ModalPopup>
       </Form>
     </div>
   );

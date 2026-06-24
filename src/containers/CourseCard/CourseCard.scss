@@ -378,6 +378,25 @@ $robbo-course-card-desktop-image-ratio: math.div(16, 9);
         right: 0;
       }
     }
+    
+    @media (hover: hover) {
+      &:hover .pgn__card-image-cap,
+      &:focus-within .pgn__card-image-cap {
+        transform: scale(1.03);
+      }
+    }
+    
+    // На .pgn__card-image-cap (desktop, ~строка 79)
+    .pgn__card-image-cap {
+      transition: transform 300ms ease;
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .pgn__card-image-cap {
+        transition: none;
+        transform: none !important;
+      }
+    }
   }
 
   .course-card-banners {

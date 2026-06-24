@@ -21,11 +21,16 @@ $robbo-empty-catalog-cta-active: $robbo-brand-primary-dark;
     background-color: $robbo-empty-catalog-cta;
     border-color: $robbo-empty-catalog-cta;
     color: #fff;
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease,
+      transform 120ms ease;
 
     &:hover:not(:disabled) {
       background-color: $robbo-empty-catalog-cta-hover;
       border-color: $robbo-empty-catalog-cta-hover;
       color: #fff;
+      transform: translateY(-1px);
     }
 
     &:focus,
@@ -40,6 +45,7 @@ $robbo-empty-catalog-cta-active: $robbo-brand-primary-dark;
       background-color: $robbo-empty-catalog-cta-active;
       border-color: $robbo-empty-catalog-cta-active;
       color: #fff;
+      transform: translateY(0);
     }
   }
 }

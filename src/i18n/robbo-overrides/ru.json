@@ -12,5 +12,7 @@
   "robbo.header.user.signOut": "Выйти",
   "robbo.confirmEmailBanner.prefix": "Не забудьте подтвердить свой адрес электронной почты, чтобы продолжить обучение!",
   "robbo.confirmEmailBanner.confirmNow": "Подтвердить сейчас",
-  "robbo.confirmEmailBanner.suffix": ". Если письма нет во входящих, проверьте папку «Спам»."
+  "robbo.confirmEmailBanner.suffix": ". Если письма нет во входящих, проверьте папку «Спам».",
+  "learner-dash.courseCard.banners.certRequestable": "Поздравляем! Вы можете запросить сертификат.",
+  "learner-dash.courseCard.banners.goToCourseContent": "Перейти в содержание."
 }

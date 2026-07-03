@@ -56,6 +56,16 @@ const messages = defineMessages({
     description: 'Certificate link text',
     defaultMessage: 'View Certificate.',
   },
+  certRequestable: {
+    id: 'learner-dash.courseCard.banners.certRequestable',
+    description: 'Certificate can be requested message',
+    defaultMessage: 'Congratulations. You can request your certificate.',
+  },
+  goToCourseContent: {
+    id: 'learner-dash.courseCard.banners.goToCourseContent',
+    description: 'Link to course home where the learner can request a certificate',
+    defaultMessage: 'Go to course content.',
+  },
   certMinGrade: {
     id: 'learner-dash.courseCard.banners.certMinGrade',
     description: 'Passing grade requirement message',

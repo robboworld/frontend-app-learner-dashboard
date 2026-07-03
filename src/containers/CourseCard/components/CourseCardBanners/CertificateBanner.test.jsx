@@ -24,6 +24,7 @@ describe('CertificateBanner', () => {
   reduxHooks.useCardCourseRunData.mockReturnValue({
     minPassingGrade: 0.8,
     progressUrl: 'progressUrl',
+    homeUrl: 'homeUrl',
   });
 
   const defaultCertificate = {
@@ -143,6 +144,13 @@ describe('CertificateBanner', () => {
       const wrapper = createWrapper({
         grade: { isPassing: true },
         certificate: { isDownloadable: true },
+      });
+      expect(wrapper.snapshot).toMatchSnapshot();
+    });
+    test('is passing and certificate is requestable', () => {
+      const wrapper = createWrapper({
+        grade: { isPassing: true },
+        certificate: { isRequestable: true },
       });
       expect(wrapper.snapshot).toMatchSnapshot();
     });

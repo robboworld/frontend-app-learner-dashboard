@@ -12,5 +12,7 @@
   "robbo.header.user.signOut": "Sign Out",
   "robbo.confirmEmailBanner.prefix": "Remember to confirm your email address so you can continue learning!",
   "robbo.confirmEmailBanner.confirmNow": "Confirm now",
-  "robbo.confirmEmailBanner.suffix": ". If you do not see the message in your inbox, check your spam folder."
+  "robbo.confirmEmailBanner.suffix": ". If you do not see the message in your inbox, check your spam folder.",
+  "learner-dash.courseCard.banners.certRequestable": "Congratulations. You can request your certificate.",
+  "learner-dash.courseCard.banners.goToCourseContent": "Go to course content."
 }

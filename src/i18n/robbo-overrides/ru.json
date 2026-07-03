@@ -21,5 +21,7 @@
   "learner-dash.courseCard.status.notStarted": "Не начат",
   "learner-dash.courseCard.status.inProgress": "В процессе",
   "learner-dash.courseCard.status.completed": "Завершён",
-  "learner-dash.courseCard.CourseCardDetails.pausedAt": "Вы остановились на: {title}"
+  "learner-dash.courseCard.CourseCardDetails.pausedAt": "Вы остановились на: {title}",
+  "learner-dash.courseCard.banners.certRequestable": "Поздравляем! Вы можете запросить сертификат.",
+  "learner-dash.courseCard.banners.goToCourseContent": "Перейти в содержание."
 }

@@ -109,6 +109,8 @@
   "learner-dash.courseCard.banners.viewGrades": "Смотреть оценки.",
   "learner-dash.courseCard.banners.certReady": "Поздравляем! Сертификат готов.",
   "learner-dash.courseCard.banners.viewCertificate": "Открыть сертификат.",
+  "learner-dash.courseCard.banners.certRequestable": "Поздравляем! Вы можете запросить сертификат.",
+  "learner-dash.courseCard.banners.goToCourseContent": "Перейти в содержание.",
   "learner-dash.courseCard.banners.certMinGrade": "Для сертификата нужен балл: {minPassingGrade} %",
   "learner-dash.courseCard.banners.downloadCertificate": "Скачать сертификат.",
   "learner-dash.courseCard.banners.gradseAndCertReadyAfter": "Оценка и сертификат будут доступны после {availableDate}.",

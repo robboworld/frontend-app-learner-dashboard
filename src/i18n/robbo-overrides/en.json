@@ -21,5 +21,7 @@
   "learner-dash.courseCard.status.notStarted": "Not started",
   "learner-dash.courseCard.status.inProgress": "In progress",
   "learner-dash.courseCard.status.completed": "Completed",
-  "learner-dash.courseCard.CourseCardDetails.pausedAt": "You stopped at: {title}"
+  "learner-dash.courseCard.CourseCardDetails.pausedAt": "You stopped at: {title}",
+  "learner-dash.courseCard.banners.certRequestable": "Congratulations. You can request your certificate.",
+  "learner-dash.courseCard.banners.goToCourseContent": "Go to course content."
 }

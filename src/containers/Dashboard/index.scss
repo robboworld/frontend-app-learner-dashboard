@@ -7,6 +7,31 @@ $robbo-dashboard-accent-dark: $robbo-brand-primary-dark;
 // Readable line length for the course list when the sidebar promo column is removed (~ former col-8 at xl).
 $robbo-dashboard-course-list-max-width: 976px;
 
+$robbo-card-menu-enter-duration: 200ms;
+$robbo-card-menu-item-enter-duration: 180ms;
+$robbo-card-menu-item-stagger-start: 60ms;
+$robbo-card-menu-item-stagger-step: 45ms;
+
+@keyframes robbo-card-dropdown-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes robbo-card-menu-item-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .course-list-column {
   width: 100%;
   max-width: $robbo-dashboard-course-list-max-width;
@@ -125,6 +150,18 @@ $robbo-dashboard-course-list-max-width: 976px;
   }
 
   // Course card ⋮ — Paragon IconButton variant="primary" uses theme primary (blue).
+  .btn-icon-primary,
+  .btn-icon-primary-active {
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      transform 120ms ease;
+
+    &:active:not(:disabled) {
+      transform: scale(0.94);
+    }
+  }
+
   .btn-icon-primary {
     color: $robbo-dashboard-accent;
 
@@ -166,8 +203,25 @@ $robbo-dashboard-course-list-max-width: 976px;
 
   // Course card ⋮ menu — Paragon dropdown :active uses primary (blue); use Robbo green.
   .course-list-container {
+    .dropdown-menu.show {
+      animation: robbo-card-dropdown-enter $robbo-card-menu-enter-duration ease-out;
+
+      a.pgn__dropdown-item,
+      .pgn__dropdown-item.dropdown-item {
+        animation: robbo-card-menu-item-enter $robbo-card-menu-item-enter-duration ease-out backwards;
+      }
+
+      @for $i from 1 through 6 {
+        > .pgn__dropdown-item:nth-child(#{$i}) {
+          animation-delay: $robbo-card-menu-item-stagger-start + ($i - 1) * $robbo-card-menu-item-stagger-step;
+        }
+      }
+    }
+
     a.pgn__dropdown-item,
     .pgn__dropdown-item.dropdown-item {
+      transition: background-color 200ms ease, color 200ms ease;
+
       &:hover {
         color: $robbo-dashboard-accent-dark;
         background-color: $robbo-ui-primary-light-pressed;
@@ -183,6 +237,24 @@ $robbo-dashboard-course-list-max-width: 976px;
       &:active {
         color: #fff;
         background-color: $robbo-dashboard-accent;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dashboard-content {
+    .btn-icon-primary,
+    .btn-icon-primary-active {
+      transition: background-color 200ms ease, color 200ms ease;
+      transform: none;
+    }
+
+    .course-list-container {
+      .dropdown-menu.show,
+      a.pgn__dropdown-item,
+      .pgn__dropdown-item.dropdown-item {
+        animation: none;
       }
     }
   }

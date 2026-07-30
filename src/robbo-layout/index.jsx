@@ -49,7 +49,7 @@ const getDashboardUrl = (config) => (
 );
 
 // LMS `/courses` first: Tutor often sets COURSE_SEARCH_URL to the learner app (same as dashboard).
-const getCatalogUrl = (config) => (
+export const getCatalogUrl = (config) => (
   (config.LMS_BASE_URL && buildUrl(config.LMS_BASE_URL, '/courses'))
   || config.COURSE_SEARCH_URL
   || config.COURSE_CATALOG_URL
@@ -58,7 +58,13 @@ const getCatalogUrl = (config) => (
 
 const getProgramsUrl = (config) => buildUrl(config.LMS_BASE_URL, '/dashboard/programs');
 
+const getStudioUrl = (config) => {
+  const base = config.STUDIO_BASE_URL || config.CMS_BASE_URL || '';
+  return base ? String(base).replace(/\/$/, '') : '';
+};
+
 /** Account MFE uses PUBLIC_PATH `/account/`; basename requires a trailing slash. */
+
 const getAccountSettingsUrl = (config) => {
   const base = config.ACCOUNT_SETTINGS_URL;
   if (!base) {
@@ -82,7 +88,10 @@ export const RobboHeader = ({
   const config = getConfig();
   const dashboardUrl = getDashboardUrl(config);
   const catalogUrl = getCatalogUrl(config);
+  const studioUrl = getStudioUrl(config);
   const username = authenticatedUser?.username || authenticatedUser?.name || '';
+  // LMS studio_header_link: superuser / global staff only (`administrator` in JWT).
+  const showStudioLink = Boolean(studioUrl && authenticatedUser?.administrator);
 
   const mainLinks = [
     {
@@ -143,7 +152,12 @@ export const RobboHeader = ({
     <header className={headerClassName.join(' ')}>
       <div className="robbo-layout-header__inner">
         <div className="robbo-layout-header__leading">
-          <a className="robbo-layout-header__brand" href={catalogUrl} aria-label="РОББО">
+          <a
+            className="robbo-layout-header__brand"
+            href={catalogUrl}
+            onClick={onCatalogClick}
+            aria-label="РОББО"
+          >
             <span className="robbo-layout-header__wordmark">
               РОББО
               <sup className="robbo-layout-header__reg" aria-hidden="true">®</sup>
@@ -172,6 +186,27 @@ export const RobboHeader = ({
           ))}
         </nav>
         <div className="robbo-layout-header__trailing">
+          {showStudioLink && (
+            <div
+              className="robbo-header-studio-link"
+              hidden={collapseMainNav}
+              aria-hidden={collapseMainNav}
+            >
+              <a
+                className="robbo-header-studio-link__btn"
+                href={studioUrl}
+                aria-label={intl.formatMessage({
+                  id: 'robbo.header.studio.aria',
+                  defaultMessage: 'Go to Studio',
+                })}
+              >
+                <FormattedMessage
+                  id="robbo.header.studio.label"
+                  defaultMessage="Studio"
+                />
+              </a>
+            </div>
+          )}
           {showUserDropdown && username && (
             <div className="robbo-layout-user-menu" ref={userMenuRef}>
               <button
@@ -224,6 +259,18 @@ export const RobboHeader = ({
                       <FormattedMessage id={item.messageId} />
                     </a>
                   ))}
+                  {collapseMainNav && showStudioLink && (
+                    <a
+                      className="robbo-layout-user-menu__item robbo-layout-user-menu__item--main-nav"
+                      href={studioUrl}
+                      role="menuitem"
+                    >
+                      <FormattedMessage
+                        id="robbo.header.studio.label"
+                        defaultMessage="Studio"
+                      />
+                    </a>
+                  )}
                   {userMenuLinks.map((item) => (
                     <a
                       key={`${item.href}-${item.messageId}`}

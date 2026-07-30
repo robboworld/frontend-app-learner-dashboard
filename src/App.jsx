@@ -15,6 +15,7 @@ import {
   actions,
 } from 'data/redux';
 import { reduxHooks } from 'hooks';
+import { isNavigatingAway } from 'data/navigationAway';
 import Dashboard from 'containers/Dashboard';
 
 import track from 'tracking';
@@ -36,7 +37,10 @@ export const App = () => {
     initialize: reduxHooks.useRequestIsFailed(RequestKeys.initialize),
     refreshList: reduxHooks.useRequestIsFailed(RequestKeys.refreshList),
   };
-  const hasNetworkFailure = isFailed.initialize || isFailed.refreshList;
+  const hasNetworkFailure = (
+    !isNavigatingAway()
+    && (isFailed.initialize || isFailed.refreshList)
+  );
   const { supportEmail } = reduxHooks.usePlatformSettingsData();
   const loadData = reduxHooks.useLoadData();
 

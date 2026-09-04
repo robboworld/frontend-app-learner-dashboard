@@ -49,7 +49,7 @@ const getDashboardUrl = (config) => (
 );
 
 // LMS `/courses` first: Tutor often sets COURSE_SEARCH_URL to the learner app (same as dashboard).
-const getCatalogUrl = (config) => (
+export const getCatalogUrl = (config) => (
   (config.LMS_BASE_URL && buildUrl(config.LMS_BASE_URL, '/courses'))
   || config.COURSE_SEARCH_URL
   || config.COURSE_CATALOG_URL

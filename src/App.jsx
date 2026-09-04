@@ -20,6 +20,7 @@ import {
   useRequestError,
   useRequestIsFailed,
 } from 'data/redux/hooks';
+import { isNavigatingAway } from 'data/navigationAway';
 import Dashboard from 'containers/Dashboard';
 
 import track from 'tracking';
@@ -41,11 +42,13 @@ export const App = () => {
   const refreshFailed = useRequestIsFailed(RequestKeys.refreshList);
   const initializeError = useRequestError(RequestKeys.initialize);
   const refreshError = useRequestError(RequestKeys.refreshList);
-  // Only HTTP failures (response present). Abort/unload yields axios "Network Error"
-  // without response — do not replace the dashboard with ErrorPage.
+  // HTTP failures only; also suppress while leaving for catalog (navigationAway).
   const hasNetworkFailure = (
-    (initializeFailed && Boolean(initializeError?.response))
-    || (refreshFailed && Boolean(refreshError?.response))
+    !isNavigatingAway()
+    && (
+      (initializeFailed && Boolean(initializeError?.response))
+      || (refreshFailed && Boolean(refreshError?.response))
+    )
   );
   const { supportEmail } = usePlatformSettingsData() || {};
   const loadData = useLoadData();

@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 
+import { isNavigatingAway } from 'data/navigationAway';
 // Leaf module: avoid circular import via data/redux barrel.
 import { actions, selectors } from '../requests';
 import * as module from './requests';
@@ -47,6 +48,9 @@ export const isRequestCancellation = (error) => {
   if (typeof error.message === 'string' && /abort|cancel/i.test(error.message)) {
     return true;
   }
+  if (error.message === 'Network Error') {
+    return true;
+  }
   return false;
 };
 
@@ -56,6 +60,9 @@ export const isRequestCancellation = (error) => {
  * and the rejection can run while visibility is still "visible".
  */
 export const isNavigationalFetchFailure = (error) => {
+  if (isNavigatingAway()) {
+    return true;
+  }
   if (module.isRequestCancellation(error)) {
     return true;
   }
@@ -65,7 +72,6 @@ export const isNavigationalFetchFailure = (error) => {
   if (typeof document !== 'undefined' && document.visibilityState === 'hidden') {
     return true;
   }
-  // No HTTP response: request never completed (unload kill is the common case here).
   if (error && !error.response && (error.isAxiosError || error.message === 'Network Error')) {
     return true;
   }
@@ -82,6 +88,9 @@ export const useMakeNetworkRequest = () => {
   }) => {
     dispatch(actions.startRequest({ requestKey }));
     return promise.then((response) => {
+      if (isNavigatingAway()) {
+        return;
+      }
       if (onSuccess) { onSuccess(response); }
       dispatch(actions.completeRequest({ requestKey, response }));
     }).catch((error) => {

@@ -6,7 +6,12 @@ import { useIntl } from '@edx/frontend-platform/i18n';
 import { getConfig } from '@edx/frontend-platform';
 
 import { RequestKeys } from 'data/constants/requests';
-import { reduxHooks } from 'hooks';
+import {
+  useLoadData,
+  usePlatformSettingsData,
+  useRequestError,
+  useRequestIsFailed,
+} from 'data/redux/hooks';
 import Dashboard from 'containers/Dashboard';
 import LearnerDashboardHeader from 'containers/LearnerDashboardHeader';
 import AppWrapper from 'containers/WidgetContainers/AppWrapper';
@@ -23,12 +28,11 @@ jest.mock('data/redux', () => ({
   actions: 'redux.actions',
   thunkActions: 'redux.thunkActions',
 }));
-jest.mock('hooks', () => ({
-  reduxHooks: {
-    useRequestIsFailed: jest.fn(),
-    usePlatformSettingsData: jest.fn(),
-    useLoadData: jest.fn(),
-  },
+jest.mock('data/redux/hooks', () => ({
+  useRequestIsFailed: jest.fn(),
+  useRequestError: jest.fn(),
+  usePlatformSettingsData: jest.fn(),
+  useLoadData: jest.fn(),
 }));
 jest.mock('data/store', () => 'data/store');
 
@@ -37,12 +41,13 @@ jest.mock('@edx/frontend-platform', () => ({
 }));
 
 const loadData = jest.fn();
-reduxHooks.useLoadData.mockReturnValue(loadData);
+useLoadData.mockReturnValue(loadData);
 
 let el;
 
 const supportEmail = 'test-support-url';
-reduxHooks.usePlatformSettingsData.mockReturnValue({ supportEmail });
+usePlatformSettingsData.mockReturnValue({ supportEmail });
+const httpFailure = { response: { status: 500 } };
 
 describe('App router component', () => {
   const { formatMessage } = useIntl();
@@ -66,7 +71,8 @@ describe('App router component', () => {
     };
     describe('no network failure', () => {
       beforeAll(() => {
-        reduxHooks.useRequestIsFailed.mockReturnValue(false);
+        useRequestIsFailed.mockReturnValue(false);
+        useRequestError.mockReturnValue(undefined);
         getConfig.mockReturnValue({});
         el = shallow(<App />);
       });
@@ -83,7 +89,8 @@ describe('App router component', () => {
     });
     describe('no network failure with optimizely url', () => {
       beforeAll(() => {
-        reduxHooks.useRequestIsFailed.mockReturnValue(false);
+        useRequestIsFailed.mockReturnValue(false);
+        useRequestError.mockReturnValue(undefined);
         getConfig.mockReturnValue({ OPTIMIZELY_URL: 'fake.url' });
         el = shallow(<App />);
       });
@@ -100,7 +107,8 @@ describe('App router component', () => {
     });
     describe('no network failure with optimizely project id', () => {
       beforeAll(() => {
-        reduxHooks.useRequestIsFailed.mockReturnValue(false);
+        useRequestIsFailed.mockReturnValue(false);
+        useRequestError.mockReturnValue(undefined);
         getConfig.mockReturnValue({ OPTIMIZELY_PROJECT_ID: 'fakeId' });
         el = shallow(<App />);
       });
@@ -117,7 +125,10 @@ describe('App router component', () => {
     });
     describe('initialize failure', () => {
       beforeAll(() => {
-        reduxHooks.useRequestIsFailed.mockImplementation((key) => key === RequestKeys.initialize);
+        useRequestIsFailed.mockImplementation((key) => key === RequestKeys.initialize);
+        useRequestError.mockImplementation((key) => (
+          key === RequestKeys.initialize ? httpFailure : undefined
+        ));
         getConfig.mockReturnValue({});
         el = shallow(<App />);
       });
@@ -135,7 +146,10 @@ describe('App router component', () => {
     });
     describe('refresh failure', () => {
       beforeAll(() => {
-        reduxHooks.useRequestIsFailed.mockImplementation((key) => key === RequestKeys.refreshList);
+        useRequestIsFailed.mockImplementation((key) => key === RequestKeys.refreshList);
+        useRequestError.mockImplementation((key) => (
+          key === RequestKeys.refreshList ? httpFailure : undefined
+        ));
         getConfig.mockReturnValue({});
         el = shallow(<App />);
       });
@@ -149,6 +163,18 @@ describe('App router component', () => {
         const errorPage = alert.children[0];
         expect(errorPage.type).toEqual('ErrorPage');
         expect(errorPage.props.message).toEqual(formatMessage(messages.errorMessage, { supportEmail }));
+      });
+    });
+    describe('initialize network abort (no HTTP response)', () => {
+      beforeAll(() => {
+        useRequestIsFailed.mockImplementation((key) => key === RequestKeys.initialize);
+        useRequestError.mockReturnValue({ message: 'Network Error', isAxiosError: true });
+        getConfig.mockReturnValue({});
+        el = shallow(<App />);
+      });
+      it('still loads dashboard instead of ErrorPage', () => {
+        const main = el.instance.findByType('main')[0];
+        expect(main.children[0].type).toEqual('Dashboard');
       });
     });
   });

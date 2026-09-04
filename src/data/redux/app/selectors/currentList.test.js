@@ -178,7 +178,7 @@ describe('courseList selector module', () => {
     });
     it('disable pagination if page size is 0', () => {
       out = visibleList(testState, { sortBy, filters: testFilters, pageSize: 0 });
-      expect(out.visible).toEqual(testList);
+      expect(out.visibleList).toEqual(testList);
       expect(out.numPages).toEqual(1);
     });
   });

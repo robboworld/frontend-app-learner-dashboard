@@ -14,7 +14,12 @@ import {
   selectors,
   actions,
 } from 'data/redux';
-import { reduxHooks } from 'hooks';
+import {
+  useLoadData,
+  usePlatformSettingsData,
+  useRequestError,
+  useRequestIsFailed,
+} from 'data/redux/hooks';
 import { isNavigatingAway } from 'data/navigationAway';
 import Dashboard from 'containers/Dashboard';
 
@@ -33,16 +38,20 @@ import './App.scss';
 export const App = () => {
   const { authenticatedUser } = React.useContext(AppContext);
   const { formatMessage } = useIntl();
-  const isFailed = {
-    initialize: reduxHooks.useRequestIsFailed(RequestKeys.initialize),
-    refreshList: reduxHooks.useRequestIsFailed(RequestKeys.refreshList),
-  };
+  const initializeFailed = useRequestIsFailed(RequestKeys.initialize);
+  const refreshFailed = useRequestIsFailed(RequestKeys.refreshList);
+  const initializeError = useRequestError(RequestKeys.initialize);
+  const refreshError = useRequestError(RequestKeys.refreshList);
+  // HTTP failures only; also suppress while leaving for catalog (navigationAway).
   const hasNetworkFailure = (
     !isNavigatingAway()
-    && (isFailed.initialize || isFailed.refreshList)
+    && (
+      (initializeFailed && Boolean(initializeError?.response))
+      || (refreshFailed && Boolean(refreshError?.response))
+    )
   );
-  const { supportEmail } = reduxHooks.usePlatformSettingsData();
-  const loadData = reduxHooks.useLoadData();
+  const { supportEmail } = usePlatformSettingsData() || {};
+  const loadData = useLoadData();
 
   React.useEffect(() => {
     if (authenticatedUser?.administrator || getConfig().NODE_ENV === 'development') {

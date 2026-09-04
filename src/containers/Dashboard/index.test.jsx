@@ -15,6 +15,7 @@ jest.mock('hooks', () => ({
     useHasCourses: jest.fn(),
     useShowSelectSessionModal: jest.fn(),
     useRequestIsPending: jest.fn(),
+    useRequestIsCompleted: jest.fn(),
   },
 }));
 
@@ -37,10 +38,12 @@ describe('Dashboard', () => {
   const createWrapper = ({
     hasCourses,
     initIsPending,
+    initIsCompleted,
     showSelectSessionModal,
   }) => {
     reduxHooks.useHasCourses.mockReturnValueOnce(hasCourses);
     reduxHooks.useRequestIsPending.mockReturnValueOnce(initIsPending);
+    reduxHooks.useRequestIsCompleted.mockReturnValueOnce(initIsCompleted);
     reduxHooks.useShowSelectSessionModal.mockReturnValueOnce(showSelectSessionModal);
     return shallow(<Dashboard />);
   };
@@ -84,6 +87,20 @@ describe('Dashboard', () => {
         props: {
           hasCourses: false,
           initIsPending: true,
+          initIsCompleted: false,
+          showSelectSessionModal: false,
+        },
+        content: ['LoadingView', <LoadingView />],
+        showSelectSessionModal: false,
+      });
+    });
+
+    describe('loading after navigational abort (cleared, not yet retried)', () => {
+      testView({
+        props: {
+          hasCourses: false,
+          initIsPending: false,
+          initIsCompleted: false,
           showSelectSessionModal: false,
         },
         content: ['LoadingView', <LoadingView />],
@@ -96,6 +113,7 @@ describe('Dashboard', () => {
         props: {
           hasCourses: true,
           initIsPending: false,
+          initIsCompleted: true,
           showSelectSessionModal: true,
         },
         content: ['LoadedView', (
@@ -110,6 +128,7 @@ describe('Dashboard', () => {
         props: {
           hasCourses: false,
           initIsPending: false,
+          initIsCompleted: true,
           showSelectSessionModal: false,
         },
         content: ['Dashboard layout with no courses sidebar and content', (

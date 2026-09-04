@@ -5,14 +5,14 @@ import { Search } from '@openedx/paragon/icons';
 import { baseAppUrl } from 'data/services/lms/urls';
 
 import emptyCourseSVG from 'assets/empty-course.svg';
-import { reduxHooks } from 'hooks';
+import { usePlatformSettingsData } from 'data/redux/hooks';
 
 import messages from './messages';
 import './index.scss';
 
 export const NoCoursesView = () => {
   const { formatMessage } = useIntl();
-  const { courseSearchUrl } = reduxHooks.usePlatformSettingsData();
+  const { courseSearchUrl } = usePlatformSettingsData() || {};
   return (
     <div
       id="no-courses-content-view"

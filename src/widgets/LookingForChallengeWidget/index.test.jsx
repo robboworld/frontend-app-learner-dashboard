@@ -2,12 +2,10 @@ import { shallow } from '@edx/react-unit-test-utils';
 
 import LookingForChallengeWidget from '.';
 
-jest.mock('hooks', () => ({
-  reduxHooks: {
-    usePlatformSettingsData: () => ({
-      courseSearchUrl: 'http://localhost:18000/course-search-url',
-    }),
-  },
+jest.mock('data/redux/hooks', () => ({
+  usePlatformSettingsData: () => ({
+    courseSearchUrl: 'http://localhost:18000/course-search-url',
+  }),
 }));
 
 jest.mock('./track', () => ({

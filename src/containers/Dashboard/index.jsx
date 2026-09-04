@@ -16,19 +16,23 @@ export const Dashboard = () => {
   const { pageTitle } = hooks.useDashboardMessages();
   const hasCourses = reduxHooks.useHasCourses();
   const initIsPending = reduxHooks.useRequestIsPending(RequestKeys.initialize);
+  const initIsCompleted = reduxHooks.useRequestIsCompleted(RequestKeys.initialize);
   const showSelectSessionModal = reduxHooks.useShowSelectSessionModal();
+  // Stay on the loading animation until initialize succeeds — including the gap
+  // after a navigational abort clears the request before the retry finishes.
+  const showLoading = initIsPending || !initIsCompleted;
 
   return (
     <div id="dashboard-container" className="d-flex flex-column px-2 pb-2 pt-2 pt-md-0">
       <h1 className="sr-only">{pageTitle}</h1>
-      {!initIsPending && (
+      {!showLoading && (
         <>
           <DashboardModalSlot />
           {(hasCourses && showSelectSessionModal) && <SelectSessionModal />}
         </>
       )}
       <div id="dashboard-content" data-testid="dashboard-content">
-        {initIsPending
+        {showLoading
           ? (<LoadingView />)
           : (
             <DashboardLayout>

@@ -44,6 +44,25 @@ exports[`Dashboard snapshots courses still loading snapshot 1`] = `
 </div>
 `;
 
+exports[`Dashboard snapshots loading after navigational abort (cleared, not yet retried) snapshot 1`] = `
+<div
+  className="d-flex flex-column px-2 pb-2 pt-2 pt-md-0"
+  id="dashboard-container"
+>
+  <h1
+    className="sr-only"
+  >
+    test-page-title
+  </h1>
+  <div
+    data-testid="dashboard-content"
+    id="dashboard-content"
+  >
+    <LoadingView />
+  </div>
+</div>
+`;
+
 exports[`Dashboard snapshots there are no courses snapshot 1`] = `
 <div
   className="d-flex flex-column px-2 pb-2 pt-2 pt-md-0"

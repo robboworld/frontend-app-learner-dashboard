@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CertificateBanner snapshot is passing and certificate is requestable 1`] = `
+<Banner
+  icon={[MockFunction icons.CheckCircle]}
+  variant="success"
+>
+  Congratulations. You can request your certificate.
+</Banner>
+`;
+
 exports[`CertificateBanner snapshot is passing and is downloadable 1`] = `
 <Banner
   icon={[MockFunction icons.CheckCircle]}

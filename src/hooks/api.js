@@ -6,10 +6,17 @@ import { RequestKeys } from 'data/constants/requests';
 import { post } from 'data/services/lms/utils';
 import api from 'data/services/lms/api';
 
-import * as reduxHooks from 'data/redux/hooks';
+// Named imports avoid incomplete namespace from circular init.
+import {
+  useCardCourseRunData,
+  useCardCreditData,
+  useCardEntitlementData,
+  useClearRequest,
+  useEmailConfirmationData,
+  useLoadData,
+  useMakeNetworkRequest,
+} from 'data/redux/hooks';
 import * as module from './api';
-
-const { useMakeNetworkRequest } = reduxHooks;
 
 export const useNetworkRequest = (action, args) => {
   const makeNetworkRequest = useMakeNetworkRequest();
@@ -24,7 +31,7 @@ export const useNetworkRequest = (action, args) => {
  * submission list data.
  */
 export const useInitializeApp = () => {
-  const loadData = reduxHooks.useLoadData();
+  const loadData = useLoadData();
   return module.useNetworkRequest(api.initializeList, {
     requestKey: RequestKeys.initialize,
     onSuccess: ({ data }) => loadData(data),
@@ -32,7 +39,7 @@ export const useInitializeApp = () => {
 };
 
 export const useNewEntitlementEnrollment = (cardId) => {
-  const { uuid } = reduxHooks.useCardEntitlementData(cardId);
+  const { uuid } = useCardEntitlementData(cardId);
   const onSuccess = module.useInitializeApp();
   return module.useNetworkRequest(
     (selection) => api.updateEntitlementEnrollment({ uuid, courseId: selection }),
@@ -41,7 +48,7 @@ export const useNewEntitlementEnrollment = (cardId) => {
 };
 
 export const useSwitchEntitlementEnrollment = (cardId) => {
-  const { uuid } = reduxHooks.useCardEntitlementData(cardId);
+  const { uuid } = useCardEntitlementData(cardId);
   const onSuccess = module.useInitializeApp();
   const action = (selection) => api.updateEntitlementEnrollment({ uuid, courseId: selection });
   return module.useNetworkRequest(
@@ -51,7 +58,7 @@ export const useSwitchEntitlementEnrollment = (cardId) => {
 };
 
 export const useLeaveEntitlementSession = (cardId) => {
-  const { uuid, isRefundable } = reduxHooks.useCardEntitlementData(cardId);
+  const { uuid, isRefundable } = useCardEntitlementData(cardId);
   const onSuccess = module.useInitializeApp();
   return module.useNetworkRequest(
     () => api.deleteEntitlementEnrollment({ uuid, isRefundable }),
@@ -60,7 +67,7 @@ export const useLeaveEntitlementSession = (cardId) => {
 };
 
 export const useUnenrollFromCourse = (cardId) => {
-  const { courseId } = reduxHooks.useCardCourseRunData(cardId);
+  const { courseId } = useCardCourseRunData(cardId);
   return module.useNetworkRequest(
     () => api.unenrollFromCourse({ courseId }),
     { requestKey: RequestKeys.unenrollFromCourse },
@@ -68,7 +75,7 @@ export const useUnenrollFromCourse = (cardId) => {
 };
 
 export const useMasqueradeAs = () => {
-  const loadData = reduxHooks.useLoadData();
+  const loadData = useLoadData();
   return module.useNetworkRequest(
     (user) => api.initializeList({ user }),
     { onSuccess: ({ data }) => loadData(data), requestKey: RequestKeys.masquerade },
@@ -76,7 +83,7 @@ export const useMasqueradeAs = () => {
 };
 
 export const useClearMasquerade = () => {
-  const clearRequest = reduxHooks.useClearRequest();
+  const clearRequest = useClearRequest();
   const initializeApp = module.useInitializeApp();
   return () => {
     clearRequest(RequestKeys.masquerade);
@@ -85,7 +92,7 @@ export const useClearMasquerade = () => {
 };
 
 export const useUpdateEmailSettings = (cardId) => {
-  const { courseId } = reduxHooks.useCardCourseRunData(cardId);
+  const { courseId } = useCardCourseRunData(cardId);
   return module.useNetworkRequest(
     (enable) => api.updateEmailSettings({ courseId, enable }),
     { requestKey: RequestKeys.updateEmailSettings },
@@ -93,13 +100,13 @@ export const useUpdateEmailSettings = (cardId) => {
 };
 
 export const useSendConfirmEmail = () => {
-  const { sendEmailUrl } = reduxHooks.useEmailConfirmationData();
+  const { sendEmailUrl } = useEmailConfirmationData();
   return () => post(sendEmailUrl);
 };
 
 export const useCreateCreditRequest = (cardId) => {
-  const { providerId } = reduxHooks.useCardCreditData(cardId);
+  const { providerId } = useCardCreditData(cardId);
   const { authenticatedUser: { username } } = React.useContext(AppContext);
-  const { courseId } = reduxHooks.useCardCourseRunData(cardId);
+  const { courseId } = useCardCourseRunData(cardId);
   return () => api.createCreditRequest({ providerId, courseId, username });
 };

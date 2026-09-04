@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useSelector, useDispatch } from 'react-redux';
 
-import * as redux from 'data/redux';
+// Leaf module: avoid circular import via data/redux barrel.
+import { actions, selectors } from '../app';
 import * as module from './app';
-
-const selectors = redux.selectors.app;
-const actions = redux.actions.app;
 
 /** Simple Selectors **/
 export const usePageNumber = () => useSelector(selectors.pageNumber);

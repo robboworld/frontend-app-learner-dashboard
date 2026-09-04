@@ -14,7 +14,12 @@ import {
   selectors,
   actions,
 } from 'data/redux';
-import { reduxHooks } from 'hooks';
+import {
+  useLoadData,
+  usePlatformSettingsData,
+  useRequestError,
+  useRequestIsFailed,
+} from 'data/redux/hooks';
 import Dashboard from 'containers/Dashboard';
 
 import track from 'tracking';
@@ -32,13 +37,18 @@ import './App.scss';
 export const App = () => {
   const { authenticatedUser } = React.useContext(AppContext);
   const { formatMessage } = useIntl();
-  const isFailed = {
-    initialize: reduxHooks.useRequestIsFailed(RequestKeys.initialize),
-    refreshList: reduxHooks.useRequestIsFailed(RequestKeys.refreshList),
-  };
-  const hasNetworkFailure = isFailed.initialize || isFailed.refreshList;
-  const { supportEmail } = reduxHooks.usePlatformSettingsData();
-  const loadData = reduxHooks.useLoadData();
+  const initializeFailed = useRequestIsFailed(RequestKeys.initialize);
+  const refreshFailed = useRequestIsFailed(RequestKeys.refreshList);
+  const initializeError = useRequestError(RequestKeys.initialize);
+  const refreshError = useRequestError(RequestKeys.refreshList);
+  // Only HTTP failures (response present). Abort/unload yields axios "Network Error"
+  // without response — do not replace the dashboard with ErrorPage.
+  const hasNetworkFailure = (
+    (initializeFailed && Boolean(initializeError?.response))
+    || (refreshFailed && Boolean(refreshError?.response))
+  );
+  const { supportEmail } = usePlatformSettingsData() || {};
+  const loadData = useLoadData();
 
   React.useEffect(() => {
     if (authenticatedUser?.administrator || getConfig().NODE_ENV === 'development') {

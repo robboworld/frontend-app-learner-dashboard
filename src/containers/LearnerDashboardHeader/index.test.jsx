@@ -6,12 +6,10 @@ import urls from 'data/services/lms/urls';
 import LearnerDashboardHeader from '.';
 import { findCoursesNavClicked } from './hooks';
 
-jest.mock('hooks', () => ({
-  reduxHooks: {
-    usePlatformSettingsData: jest.fn(() => ({
-      courseSearchUrl: '/course-search-url',
-    })),
-  },
+jest.mock('data/redux/hooks', () => ({
+  usePlatformSettingsData: jest.fn(() => ({
+    courseSearchUrl: '/course-search-url',
+  })),
 }));
 jest.mock('./hooks', () => ({
   ...jest.requireActual('./hooks'),

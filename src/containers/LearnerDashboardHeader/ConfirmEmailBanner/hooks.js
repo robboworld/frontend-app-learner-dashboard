@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { StrictDict } from 'utils';
-import { reduxHooks } from 'hooks';
+import { useEmailConfirmationData } from 'data/redux/hooks';
 
 import * as module from './hooks';
 
@@ -11,7 +11,7 @@ export const state = StrictDict({
 });
 
 export const useConfirmEmailBannerData = () => {
-  const { isNeeded } = reduxHooks.useEmailConfirmationData();
+  const { isNeeded } = useEmailConfirmationData() || {};
   const [showPageBanner, setShowPageBanner] = module.state.showPageBanner(isNeeded);
   const [showConfirmModal, setShowConfirmModal] = module.state.showConfirmModal(false);
   const closePageBanner = () => setShowPageBanner(false);

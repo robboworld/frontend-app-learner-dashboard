@@ -45,7 +45,7 @@ export const visibleList = (state, {
 
   if (pageSize === 0) {
     return {
-      visible: list,
+      visibleList: list,
       numPages: 1,
     };
   }

@@ -1,12 +1,10 @@
 import { MockUseState } from 'testUtils';
-import { reduxHooks } from 'hooks';
+import { useEmailConfirmationData } from 'data/redux/hooks';
 
 import * as hooks from './hooks';
 
-jest.mock('hooks', () => ({
-  reduxHooks: {
-    useEmailConfirmationData: jest.fn(),
-  },
+jest.mock('data/redux/hooks', () => ({
+  useEmailConfirmationData: jest.fn(),
 }));
 
 const emailConfirmation = {
@@ -29,14 +27,14 @@ describe('ConfirmEmailBanner hooks', () => {
     afterEach(state.restore);
 
     test('show page banner on unverified email', () => {
-      reduxHooks.useEmailConfirmationData.mockReturnValueOnce({ ...emailConfirmation });
+      useEmailConfirmationData.mockReturnValueOnce({ ...emailConfirmation });
       out = hooks.useConfirmEmailBannerData();
       expect(out.isNeeded).toEqual(emailConfirmation.isNeeded);
-      reduxHooks.useEmailConfirmationData.mockReturnValueOnce({ isNeeded: false });
+      useEmailConfirmationData.mockReturnValueOnce({ isNeeded: false });
     });
 
     test('hide page banner on verified email', () => {
-      reduxHooks.useEmailConfirmationData.mockReturnValueOnce({ isNeeded: false });
+      useEmailConfirmationData.mockReturnValueOnce({ isNeeded: false });
       out = hooks.useConfirmEmailBannerData();
       expect(out.isNeeded).toEqual(false);
     });
@@ -45,7 +43,7 @@ describe('ConfirmEmailBanner hooks', () => {
   describe('behavior', () => {
     beforeEach(() => {
       state.mock();
-      reduxHooks.useEmailConfirmationData.mockReturnValueOnce({ ...emailConfirmation });
+      useEmailConfirmationData.mockReturnValueOnce({ ...emailConfirmation });
       out = hooks.useConfirmEmailBannerData();
     });
     afterEach(state.restore);
@@ -58,14 +56,20 @@ describe('ConfirmEmailBanner hooks', () => {
       expect(state.values.showConfirmModal).toEqual(false);
     });
     test('openConfirmModalButtonClick', () => {
+      const original = window.location;
+      delete window.location;
+      window.location = { ...original, reload: jest.fn() };
       out.openConfirmModalButtonClick();
-      expect(state.values.showConfirmModal).toEqual(false);
-      expect(state.values.showPageBanner).toEqual(true);
+      expect(window.location.reload).toHaveBeenCalled();
+      window.location = original;
     });
     test('userConfirmEmailButtonClick', () => {
+      const original = window.location;
+      delete window.location;
+      window.location = { ...original, reload: jest.fn() };
       out.userConfirmEmailButtonClick();
-      expect(state.values.showConfirmModal).toEqual(false);
-      expect(state.values.showPageBanner).toEqual(true);
+      expect(window.location.reload).toHaveBeenCalled();
+      window.location = original;
     });
   });
 });

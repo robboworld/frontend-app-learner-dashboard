@@ -12,6 +12,7 @@ $robbo-course-card-max-height: 14rem; // caps desktop row + stacked image
 $robbo-course-card-desktop-padding: map-get($spacers, 3);
 $robbo-course-card-desktop-padding-top: map-get($spacers, 2\.5);
 $robbo-course-card-desktop-image-ratio: math.div(16, 9);
+$robbo-course-card-desktop-image-width: 18.75rem; // 300px — match LMS catalog thumbnail cap
 
 .course-card {
   // Image frame tokens (overridable from Tutor / extra CSS on .course-card).
@@ -29,6 +30,7 @@ $robbo-course-card-desktop-image-ratio: math.div(16, 9);
   --robbo-course-card-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.1);
   --robbo-course-card-transition: 0.2s ease;
 
+  .pgn__card,
   .card {
     border-radius: 10px;
     box-shadow: var(--robbo-course-card-shadow);
@@ -64,17 +66,16 @@ $robbo-course-card-desktop-image-ratio: math.div(16, 9);
       > .pgn__card-wrapper-image-cap.horizontal {
         align-items: stretch;
         align-self: stretch;
-        aspect-ratio: $robbo-course-card-desktop-image-ratio;
         display: flex;
-        flex: 0 0 auto;
-        height: auto;
+        flex: 0 0 $robbo-course-card-desktop-image-width;
+        flex-shrink: 0;
+        height: 100%;
         justify-content: center;
-        max-height: none;
-        max-width: none;
+        max-width: $robbo-course-card-desktop-image-width;
         min-height: 0;
-        min-width: 0;
+        min-width: $robbo-course-card-desktop-image-width;
         overflow: hidden;
-        width: auto;
+        width: $robbo-course-card-desktop-image-width;
 
         .pgn__card-image-cap {
           border-radius: $card-image-border-radius 0 0 $card-image-border-radius;

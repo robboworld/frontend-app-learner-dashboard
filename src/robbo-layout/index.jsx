@@ -12,6 +12,7 @@ import { FormattedMessage, useIntl } from '@edx/frontend-platform/i18n';
 import { AppContext } from '@edx/frontend-platform/react';
 
 import RobboStackBadge from './stackBadge';
+import RobboWhatsNew from './whatsNew';
 import './index.scss';
 import fasieLogo from './fasie-logo.png';
 import { getRobboLkHeaderNavItem } from './lkNav';
@@ -193,6 +194,7 @@ export const RobboHeader = ({
           ))}
         </nav>
         <div className="robbo-layout-header__trailing">
+          {username && <RobboWhatsNew className="robbo-layout-header__whats-new" />}
           {showStudioLink && (
             <div
               className="robbo-header-studio-link"

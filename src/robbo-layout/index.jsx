@@ -15,7 +15,8 @@ import RobboStackBadge from './stackBadge';
 import RobboWhatsNew from './whatsNew';
 import './index.scss';
 import fasieLogo from './fasie-logo.png';
-import { getRobboLkHeaderNavItem } from './lkNav';
+import { getRobboLkHeaderNavItem, useRobboAccountActive } from './lkNav';
+import RobboLkLockedItem from './lkLockedItem';
 
 const MOBILE_COLLAPSE_NAV_QUERY = '(max-width: 767.98px)';
 
@@ -83,6 +84,7 @@ export const RobboHeader = ({
   collapseNavIntoUserMenuOnNarrow,
 }) => {
   const { authenticatedUser } = React.useContext(AppContext);
+  const isAccountActive = useRobboAccountActive(authenticatedUser);
   const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
   const userMenuRef = React.useRef(null);
   const isNarrowViewport = useMatchMedia(MOBILE_COLLAPSE_NAV_QUERY);
@@ -114,7 +116,7 @@ export const RobboHeader = ({
       section: 'catalog',
     },
   ];
-  const lkNavItem = getRobboLkHeaderNavItem(config);
+  const lkNavItem = getRobboLkHeaderNavItem(config, { locked: !isAccountActive });
   if (lkNavItem) {
     mainLinks.push(lkNavItem);
   }
@@ -181,7 +183,9 @@ export const RobboHeader = ({
             defaultMessage: 'Main navigation',
           })}
         >
-          {mainLinks.map((item) => (
+          {mainLinks.map((item) => (item.locked ? (
+            <RobboLkLockedItem key={`${item.href}-${item.messageId}`} messageId={item.messageId} />
+          ) : (
             <a
               key={`${item.href}-${item.messageId}`}
               className={activeSection === item.section ? 'robbo-layout-header__link active' : 'robbo-layout-header__link'}
@@ -191,7 +195,7 @@ export const RobboHeader = ({
             >
               <FormattedMessage id={item.messageId} />
             </a>
-          ))}
+          )))}
         </nav>
         <div className="robbo-layout-header__trailing">
           {username && <RobboWhatsNew className="robbo-layout-header__whats-new" />}
@@ -253,7 +257,13 @@ export const RobboHeader = ({
                     defaultMessage: 'More Options',
                   })}
                 >
-                  {collapseMainNav && mainLinks.map((item) => (
+                  {collapseMainNav && mainLinks.map((item) => (item.locked ? (
+                    <RobboLkLockedItem
+                      key={`menu-${item.href}-${item.messageId}`}
+                      messageId={item.messageId}
+                      variant="menu"
+                    />
+                  ) : (
                     <a
                       key={`menu-${item.href}-${item.messageId}`}
                       className={
@@ -267,7 +277,7 @@ export const RobboHeader = ({
                     >
                       <FormattedMessage id={item.messageId} />
                     </a>
-                  ))}
+                  )))}
                   {collapseMainNav && showStudioLink && (
                     <a
                       className="robbo-layout-user-menu__item robbo-layout-user-menu__item--main-nav"

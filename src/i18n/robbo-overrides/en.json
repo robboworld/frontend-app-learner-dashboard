@@ -14,5 +14,7 @@
   "robbo.confirmEmailBanner.confirmNow": "Confirm now",
   "robbo.confirmEmailBanner.suffix": ". If you do not see the message in your inbox, check your spam folder.",
   "learner-dash.courseCard.banners.certRequestable": "Congratulations. You can request your certificate.",
-  "learner-dash.courseCard.banners.goToCourseContent": "Go to course content."
+  "learner-dash.courseCard.banners.goToCourseContent": "Go to course content.",
+  "robbo.header.studio.label": "Studio",
+  "robbo.header.studio.aria": "Go to Studio"
 }

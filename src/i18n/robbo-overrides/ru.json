@@ -22,7 +22,7 @@
   "learner-dash.courseCard.actions.resumeWithTitle": "Продолжить: {title}",
   "learner-dash.courseCard.actions.viewCourse": "Открыть курс",
   "learner-dash.courseCard.progress.aria": "Прогресс курса",
-  "learner-dash.courseCard.progress.unitsCount": "{completed} из {total} юнитов пройдено",
+  "learner-dash.courseCard.progress.unitsCount": "{completed} из {total} блоков пройдено",
   "learner-dash.courseCard.status.notStarted": "Не начат",
   "learner-dash.courseCard.status.inProgress": "В процессе",
   "learner-dash.courseCard.status.completed": "Завершён",

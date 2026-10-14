@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as ReactShare from 'react-share';
 
-import { StrictDict } from '@edx/react-unit-test-utils';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Dropdown } from '@openedx/paragon';
 
 import track from 'tracking';
 import { reduxHooks } from 'hooks';
+import { StrictDict } from 'utils';
 
 import messages from './messages';
 

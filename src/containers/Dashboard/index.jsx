@@ -4,6 +4,7 @@ import { reduxHooks } from 'hooks';
 import { RequestKeys } from 'data/constants/requests';
 import SelectSessionModal from 'containers/SelectSessionModal';
 import CoursesPanel from 'containers/CoursesPanel';
+import RobboCardPreview from 'containers/RobboCardPreview';
 import DashboardModalSlot from 'plugin-slots/DashboardModalSlot';
 
 import LoadingView from './LoadingView';
@@ -36,6 +37,7 @@ export const Dashboard = () => {
           ? (<LoadingView />)
           : (
             <DashboardLayout>
+              <RobboCardPreview />
               <CoursesPanel />
             </DashboardLayout>
           )}

@@ -12,6 +12,7 @@ const initialState = {
   suggestedCourses: [],
   selectSessionModal: {},
   filters: [],
+  robboCardPreview: null,
 };
 
 export const cardId = (val) => `card-${val}`;
@@ -45,6 +46,7 @@ const app = createSlice({
       platformSettings: payload.platformSettings,
       suggestedCourses: payload.suggestedCourses,
       socialShareSettings: payload.socialShareSettings,
+      robboCardPreview: payload.robboCardPreview || null,
     }),
     updateSelectSessionModal: (state, { payload }) => ({
       ...state,

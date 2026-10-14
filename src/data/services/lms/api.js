@@ -17,7 +17,10 @@ import * as module from './api';
  * GET Actions
  *********************************************************************************/
 export const initializeList = ({ user } = {}) => get(
-  stringifyUrl(urls.getInitApiUrl(), { [apiKeys.user]: user }),
+  stringifyUrl(urls.getInitApiUrl(), {
+    [apiKeys.user]: user,
+    [apiKeys.robboCardPreview]: new URLSearchParams(window.location.search).get(apiKeys.robboCardPreview),
+  }),
 );
 
 export const updateEntitlementEnrollment = ({ uuid, courseId }) => post(

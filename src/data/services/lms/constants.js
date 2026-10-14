@@ -7,6 +7,7 @@ export const apiKeys = StrictDict({
   courseId: 'course_id',
   user: 'user',
   isRefund: 'is_refund',
+  robboCardPreview: 'robbo_card_preview',
 });
 
 export const apiValues = StrictDict({

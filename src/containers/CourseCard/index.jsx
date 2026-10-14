@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Card } from '@openedx/paragon';
 
+import { RobboPreviewCardId } from 'data/constants/app';
+
 import { useIsCollapsed } from './hooks';
 import CourseCardBanners from './components/CourseCardBanners';
 import CourseCardImage from './components/CourseCardImage';
@@ -19,7 +21,8 @@ export const CourseCard = ({
 }) => {
   const isCollapsed = useIsCollapsed();
   const orientation = isCollapsed ? 'vertical' : 'horizontal';
-  const courseCardMenu = <CourseCardMenu cardId={cardId} />;
+  // Course card preview (RobboCardPreview): no enrollment behind it, so no unenroll/email/share menu.
+  const courseCardMenu = cardId === RobboPreviewCardId ? null : <CourseCardMenu cardId={cardId} />;
 
   return (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">

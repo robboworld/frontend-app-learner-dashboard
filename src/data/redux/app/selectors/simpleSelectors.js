@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { StrictDict } from 'utils';
+import { RobboPreviewCardId } from 'data/constants/app';
 
 import * as module from './simpleSelectors';
 
@@ -17,6 +18,7 @@ export const simpleSelectors = StrictDict({
   pageNumber: mkSimpleSelector(app => app.pageNumber),
   filters: mkSimpleSelector(app => app.filters),
   socialShareSettings: mkSimpleSelector(app => app.socialShareSettings),
+  robboCardPreview: mkSimpleSelector(app => app.robboCardPreview),
 });
 
 export const cardSimpleSelectors = StrictDict({
@@ -31,8 +33,14 @@ export const cardSimpleSelectors = StrictDict({
   relatedPrograms: ({ programs: { relatedPrograms } }) => relatedPrograms,
 });
 
+const cardData = (state, cardId) => (
+  cardId === RobboPreviewCardId
+    ? module.simpleSelectors.robboCardPreview(state)?.card
+    : module.simpleSelectors.courseData(state)[cardId]
+);
+
 export const mkCardSelector = (simpleSelector, selector) => (state, cardId) => (
-  selector(simpleSelector(module.simpleSelectors.courseData(state)[cardId]))
+  selector(simpleSelector(cardData(state, cardId)))
 );
 
 export default simpleSelectors;

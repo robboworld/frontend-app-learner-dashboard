@@ -30,13 +30,6 @@ jest.mock('react-redux', () => {
   };
 });
 
-jest.mock('moment', () => ({
-  __esModule: true,
-  default: (date) => ({
-    toDate: jest.fn().mockReturnValue(date),
-  }),
-}));
-
 jest.mock('@edx/frontend-platform/react', () => ({
   ...jest.requireActual('@edx/frontend-platform/react'),
   ErrorPage: () => 'ErrorPage',

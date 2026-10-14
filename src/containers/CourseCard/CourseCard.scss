@@ -1,6 +1,6 @@
 @use "sass:math";
 
-@import "@openedx/paragon/scss/core/core";
+@import "../../sass/robbo-paragon-variables";
 @import "../../sass/robbo-brand-tokens";
 
 // Match useIsCollapsed in hooks.js (width < breakpoints.small.maxWidth).

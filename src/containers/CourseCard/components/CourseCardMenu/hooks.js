@@ -1,4 +1,9 @@
-import { useKeyedState, StrictDict } from '@edx/react-unit-test-utils';
+// Robbo: only the runtime utils entry — the package root also pulls test helpers
+// (react-test-renderer, whole lodash) into the production bundle.
+// hooks.test.js mocks useKeyedState through this same module.
+import { useKeyedState } from '@edx/react-unit-test-utils/dist/utils';
+
+import { StrictDict } from 'utils';
 
 import track from 'tracking';
 import { reduxHooks } from 'hooks';

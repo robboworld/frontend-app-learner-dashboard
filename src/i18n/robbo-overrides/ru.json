@@ -29,5 +29,12 @@
   "learner-dash.courseCard.status.completed": "Завершён",
   "learner-dash.courseCard.CourseCardDetails.pausedAt": "Вы остановились на: {title}",
   "learner-dash.courseCard.banners.certRequestable": "Поздравляем! Вы можете запросить сертификат.",
-  "learner-dash.courseCard.banners.goToCourseContent": "Перейти в содержание."
+  "learner-dash.courseCard.banners.goToCourseContent": "Перейти в содержание.",
+  "robbo.cardPreview.eyebrow": "Предпросмотр",
+  "robbo.cardPreview.title": "Карточка курса в «Моих курсах»",
+  "robbo.cardPreview.text": "Так курс «{courseName}» выглядит в «Моих курсах» у слушателя сразу после записи.",
+  "robbo.cardPreview.note": "Этот блок видите только вы.",
+  "robbo.cardPreview.catalogLink": "Посмотреть в каталоге",
+  "robbo.cardPreview.studioLink": "Вернуться в редактор курсов",
+  "robbo.cardPreview.exitLink": "Закрыть предпросмотр"
 }

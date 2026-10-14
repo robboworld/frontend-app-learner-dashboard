@@ -18,3 +18,8 @@ export const FilterKeys = StrictDict({
 });
 
 export const ListPageSize = 25;
+
+// Robbo course card preview for the course team (`?robbo_card_preview=<course key>`):
+// the card lives outside the course list, under its own card id.
+export const RobboCardPreviewParam = 'robbo_card_preview';
+export const RobboPreviewCardId = 'card-robbo-preview';

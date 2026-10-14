@@ -29,5 +29,12 @@
   "learner-dash.courseCard.status.completed": "Completed",
   "learner-dash.courseCard.CourseCardDetails.pausedAt": "You stopped at: {title}",
   "learner-dash.courseCard.banners.certRequestable": "Congratulations. You can request your certificate.",
-  "learner-dash.courseCard.banners.goToCourseContent": "Go to course content."
+  "learner-dash.courseCard.banners.goToCourseContent": "Go to course content.",
+  "robbo.cardPreview.eyebrow": "Preview",
+  "robbo.cardPreview.title": "Course card in My courses",
+  "robbo.cardPreview.text": "This is how «{courseName}» looks in a learner's My courses right after enrolling.",
+  "robbo.cardPreview.note": "Only you can see this block.",
+  "robbo.cardPreview.catalogLink": "View in the catalog",
+  "robbo.cardPreview.studioLink": "Back to the course editor",
+  "robbo.cardPreview.exitLink": "Close preview"
 }

@@ -12,6 +12,11 @@ const messages = defineMessages({
     description: 'Course card progress bar aria label',
     defaultMessage: 'Course progress',
   },
+  progressLoading: {
+    id: 'learner-dash.courseCard.progress.loading',
+    description: 'Screen reader text while the course card progress is loading',
+    defaultMessage: 'Course progress is loading',
+  },
   unitsCount: {
     id: 'learner-dash.courseCard.progress.unitsCount',
     description: 'Course card progress units completed count',

@@ -16,7 +16,22 @@ import './index.scss';
 
 export const CourseCardProgress = ({ cardId }) => {
   const { formatMessage } = useIntl();
-  const { progress } = reduxHooks.useCardCourseRunData(cardId);
+  const { progress, progressPending } = reduxHooks.useCardCourseRunData(cardId);
+
+  // The progress follows the card (robbo_progress): keep its place meanwhile.
+  if (progressPending) {
+    return (
+      <div className="course-card-progress course-card-progress--pending" aria-busy="true" data-testid="CourseCardProgressPending">
+        <div className="course-card-progress__row">
+          <div className="course-card-progress__track" />
+          <span className="course-card-progress__placeholder course-card-progress__placeholder--percent" />
+        </div>
+        <p className="course-card-progress__units course-card-progress__placeholder">
+          <span className="sr-only">{formatMessage(messages.progressLoading)}</span>
+        </p>
+      </div>
+    );
+  }
 
   if (!progress || progress.totalCount <= 0) {
     return null;

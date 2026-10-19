@@ -96,6 +96,12 @@ export const useClearFilters = () => {
   return (value) => dispatch(actions.clearFilters(value));
 };
 
+// Robbo: progress loaded after the cards (robbo_progress).
+export const useLoadCourseProgress = () => {
+  const dispatch = useDispatch();
+  return (progressByCourseId) => dispatch(actions.loadCourseProgress(progressByCourseId));
+};
+
 export const useLoadData = () => {
   const dispatch = useDispatch();
   return ({ courses, ...globalData }) => {

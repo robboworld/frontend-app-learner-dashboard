@@ -5,8 +5,7 @@ import { useIntl } from '@edx/frontend-platform/i18n';
 import { logError } from '@edx/frontend-platform/logging';
 import { initializeHotjar } from '@edx/frontend-enterprise-hotjar';
 
-import { ErrorPage, AppContext } from '@edx/frontend-platform/react';
-import { Alert } from '@openedx/paragon';
+import { AppContext } from '@edx/frontend-platform/react';
 
 import { RequestKeys } from 'data/constants/requests';
 import store from 'data/store';
@@ -16,7 +15,6 @@ import {
 } from 'data/redux';
 import {
   useLoadData,
-  usePlatformSettingsData,
   useRequestError,
   useRequestIsFailed,
 } from 'data/redux/hooks';
@@ -31,6 +29,7 @@ import AppWrapper from 'containers/WidgetContainers/AppWrapper';
 import LearnerDashboardHeader from 'containers/LearnerDashboardHeader';
 
 import { getConfig } from '@edx/frontend-platform';
+import { RobboErrorNotice } from 'robbo-errors';
 import { RobboFooter } from 'robbo-layout';
 import messages from './messages';
 import './App.scss';
@@ -50,7 +49,6 @@ export const App = () => {
       || (refreshFailed && Boolean(refreshError?.response))
     )
   );
-  const { supportEmail } = usePlatformSettingsData() || {};
   const loadData = useLoadData();
 
   React.useEffect(() => {
@@ -96,9 +94,9 @@ export const App = () => {
           <main id="main">
             {hasNetworkFailure
               ? (
-                <Alert variant="danger">
-                  <ErrorPage message={formatMessage(messages.errorMessage, { supportEmail })} />
-                </Alert>
+                // Robbo: what failed, with the code and number (src/robbo-errors), instead of
+                // "An unexpected error occurred" and an email address.
+                <RobboErrorNotice error={initializeError || refreshError} />
               ) : (
                 <Dashboard />
               )}

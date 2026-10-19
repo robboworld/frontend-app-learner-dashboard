@@ -39,6 +39,24 @@ const app = createSlice({
         {},
       ),
     }),
+    // Robbo: progress of the cards init sent with progressPending, by course id (robbo_progress);
+    // a course missing from it has no progress to show.
+    loadCourseProgress: (state, { payload: progressByCourseId }) => ({
+      ...state,
+      courseData: Object.fromEntries(Object.entries(state.courseData).map(([id, card]) => [
+        id,
+        card.courseRun?.progressPending
+          ? {
+            ...card,
+            courseRun: {
+              ...card.courseRun,
+              progress: progressByCourseId[card.courseRun.courseId] || null,
+              progressPending: false,
+            },
+          }
+          : card,
+      ])),
+    }),
     loadGlobalData: (state, { payload }) => ({
       ...state,
       emailConfirmation: payload.emailConfirmation,

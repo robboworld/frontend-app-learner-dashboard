@@ -15,6 +15,7 @@ jest.mock('data/services/lms/utils', () => ({
 }));
 jest.mock('data/services/lms/api', () => ({
   initializeList: jest.fn(),
+  loadRobboProgress: jest.fn(),
   updateEntitlementEnrollment: jest.fn(),
   unenrollFromCourse: jest.fn(),
   deleteEntitlementEnrollment: jest.fn(),
@@ -26,6 +27,7 @@ jest.mock('data/redux/hooks', () => ({
   useCardCreditData: jest.fn(),
   useCardEntitlementData: jest.fn(),
   useLoadData: jest.fn(),
+  useLoadCourseProgress: jest.fn(),
   useMakeNetworkRequest: jest.fn(),
   useClearRequest: jest.fn(),
   useEmailConfirmationData: jest.fn(),
@@ -42,6 +44,8 @@ const user = 'test-user';
 
 const loadData = jest.fn();
 reduxHooks.useLoadData.mockReturnValue(loadData);
+const loadCourseProgress = jest.fn();
+reduxHooks.useLoadCourseProgress.mockReturnValue(loadCourseProgress);
 const clearRequest = jest.fn();
 reduxHooks.useClearRequest.mockReturnValue(clearRequest);
 
@@ -91,6 +95,28 @@ describe('api hooks', () => {
 
     beforeEach(() => {
       jest.spyOn(apiHooks, moduleKeys.useNetworkRequest).mockImplementation(mockUseNetworkRequest);
+    });
+
+    describe('useLoadRobboProgress', () => {
+      const pendingData = { courses: [{ courseRun: { progressPending: true } }] };
+      it('does not ask for progress when no card waits for it', () => {
+        apiHooks.useLoadRobboProgress()({ courses: [{ courseRun: { progressPending: false } }] });
+        expect(api.loadRobboProgress).not.toHaveBeenCalled();
+      });
+      it('loads the progress of waiting cards, for the masqueraded user too', async () => {
+        const progress = { [courseId]: { completedCount: 1, totalCount: 2, percent: 50 } };
+        api.loadRobboProgress.mockResolvedValueOnce({ data: { progress } });
+        apiHooks.useLoadRobboProgress()(pendingData, user);
+        expect(api.loadRobboProgress).toHaveBeenCalledWith({ user });
+        await new Promise(process.nextTick);
+        expect(loadCourseProgress).toHaveBeenCalledWith(progress);
+      });
+      it('clears the placeholders when the request fails', async () => {
+        api.loadRobboProgress.mockRejectedValueOnce(new Error('failed'));
+        apiHooks.useLoadRobboProgress()(pendingData);
+        await new Promise(process.nextTick);
+        expect(loadCourseProgress).toHaveBeenCalledWith({});
+      });
     });
 
     describe('useInitializeApp', () => {

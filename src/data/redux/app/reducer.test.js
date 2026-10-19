@@ -95,6 +95,25 @@ describe('app reducer', () => {
           });
         });
       });
+      describe('loadCourseProgress (Robbo)', () => {
+        const progress = { completedCount: 1, totalCount: 4, percent: 25 };
+        const state = {
+          ...testState,
+          courseData: {
+            [cardId(0)]: { courseRun: { courseId: 'course-1', progress: null, progressPending: true } },
+            [cardId(1)]: { courseRun: { courseId: 'course-2', progress: null, progressPending: true } },
+            [cardId(2)]: { courseRun: { courseId: 'course-3', progress, progressPending: false } },
+            [cardId(3)]: { courseRun: null },
+          },
+        };
+        it('fills in the waiting cards and clears their placeholders', () => {
+          const out = reducer(state, actions.loadCourseProgress({ 'course-1': progress, 'course-3': null }));
+          expect(out.courseData[cardId(0)].courseRun).toEqual({ courseId: 'course-1', progress, progressPending: false });
+          expect(out.courseData[cardId(1)].courseRun).toEqual({ courseId: 'course-2', progress: null, progressPending: false });
+          expect(out.courseData[cardId(2)]).toBe(state.courseData[cardId(2)]);
+          expect(out.courseData[cardId(3)]).toBe(state.courseData[cardId(3)]);
+        });
+      });
       describe('filters', () => {
         const newFilter = 'new filter';
         let out;

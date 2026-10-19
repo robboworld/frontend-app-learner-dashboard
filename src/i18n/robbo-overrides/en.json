@@ -19,6 +19,7 @@
   "learner-dash.courseCard.actions.resumeWithTitle": "Resume: {title}",
   "learner-dash.courseCard.actions.viewCourse": "View course",
   "learner-dash.courseCard.progress.aria": "Course progress",
+  "learner-dash.courseCard.progress.loading": "Course progress is loading",
   "learner-dash.courseCard.progress.unitsCount": "{completed} of {total} units completed",
   "learner-dash.courseCard.status.notStarted": "Not started",
   "learner-dash.courseCard.status.inProgress": "In progress",

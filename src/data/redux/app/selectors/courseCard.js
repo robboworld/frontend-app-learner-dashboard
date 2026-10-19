@@ -59,6 +59,7 @@ export const courseCard = StrictDict({
       resumeUrl: baseAppUrl(courseRun.resumeUrl), // resume will route this to learning mfe.
       resumeBlockTitle: courseRun.resumeBlockTitle || null,
       progress: courseRun.progress || null,
+      progressPending: !!courseRun.progressPending, // Robbo: loaded after the cards
       unenrollUrl: baseAppUrl(courseRun.unenrollUrl),
     }),
   ),

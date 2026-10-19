@@ -23,6 +23,11 @@ export const initializeList = ({ user } = {}) => get(
   }),
 );
 
+// Robbo: progress of the cards init sent with progressPending (LMS learner_home RobboProgressView).
+export const loadRobboProgress = ({ user } = {}) => get(
+  stringifyUrl(urls.getRobboProgressApiUrl(), { [apiKeys.user]: user }),
+);
+
 export const updateEntitlementEnrollment = ({ uuid, courseId }) => post(
   urls.entitlementEnrollment(uuid),
   { [apiKeys.courseRunId]: courseId },
@@ -70,6 +75,7 @@ export const createCreditRequest = ({ providerId, courseId, username }) => post(
 
 export default {
   initializeList,
+  loadRobboProgress,
   unenrollFromCourse,
   updateEmailSettings,
   updateEntitlementEnrollment,

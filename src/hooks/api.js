@@ -13,6 +13,7 @@ import {
   useCardEntitlementData,
   useClearRequest,
   useEmailConfirmationData,
+  useLoadCourseProgress,
   useLoadData,
   useMakeNetworkRequest,
 } from 'data/redux/hooks';
@@ -27,14 +28,34 @@ export const useNetworkRequest = (action, args) => {
 };
 
 /**
+ * Robbo: the cards show first; the progress init could not take from the cache (progressPending)
+ * follows from robbo_progress. Without it the placeholders just go away.
+ */
+export const useLoadRobboProgress = () => {
+  const loadCourseProgress = useLoadCourseProgress();
+  return (data, user) => {
+    if (!data?.courses?.some((course) => course.courseRun?.progressPending)) {
+      return;
+    }
+    api.loadRobboProgress({ user })
+      .then(({ data: { progress } }) => loadCourseProgress(progress || {}))
+      .catch(() => loadCourseProgress({}));
+  };
+};
+
+/**
  * initialize the app, loading ora and course metadata from the api, and loading the initial
  * submission list data.
  */
 export const useInitializeApp = () => {
   const loadData = useLoadData();
+  const loadRobboProgress = module.useLoadRobboProgress();
   return module.useNetworkRequest(api.initializeList, {
     requestKey: RequestKeys.initialize,
-    onSuccess: ({ data }) => loadData(data),
+    onSuccess: ({ data }) => {
+      loadData(data);
+      loadRobboProgress(data);
+    },
   });
 };
 
@@ -76,9 +97,21 @@ export const useUnenrollFromCourse = (cardId) => {
 
 export const useMasqueradeAs = () => {
   const loadData = useLoadData();
+  const loadRobboProgress = module.useLoadRobboProgress();
+  // The action and its onSuccess come from the same call, so they share the user.
+  let masqueradeUser;
   return module.useNetworkRequest(
-    (user) => api.initializeList({ user }),
-    { onSuccess: ({ data }) => loadData(data), requestKey: RequestKeys.masquerade },
+    (user) => {
+      masqueradeUser = user;
+      return api.initializeList({ user });
+    },
+    {
+      onSuccess: ({ data }) => {
+        loadData(data);
+        loadRobboProgress(data, masqueradeUser);
+      },
+      requestKey: RequestKeys.masquerade,
+    },
   );
 };
 

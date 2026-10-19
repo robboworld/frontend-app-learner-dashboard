@@ -18,7 +18,17 @@ exports[`CourseCardImage snapshot renders clickable link course Image 1`] = `
   <Fragment>
     <img
       alt="Course thumbnail"
-      className="pgn__card-image-cap w-100 show"
+      className="pgn__card-image-cap show w-100"
+      onError={
+        {
+          "useCallback": {
+            "cb": [Function],
+            "prereqs": [
+              "http://localhost:18000/theming/asset/images/no_course_image.png",
+            ],
+          },
+        }
+      }
       src="banner-img-src"
     />
     <span
@@ -48,7 +58,17 @@ exports[`CourseCardImage snapshot renders disabled link 1`] = `
   <Fragment>
     <img
       alt="Course thumbnail"
-      className="pgn__card-image-cap w-100 show"
+      className="pgn__card-image-cap show w-100"
+      onError={
+        {
+          "useCallback": {
+            "cb": [Function],
+            "prereqs": [
+              "http://localhost:18000/theming/asset/images/no_course_image.png",
+            ],
+          },
+        }
+      }
       src="banner-img-src"
     />
     <span

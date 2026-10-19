@@ -6,6 +6,15 @@ exports[`CertificateBanner snapshot is passing and certificate is requestable 1`
   variant="success"
 >
   Congratulations. You can request your certificate.
+  <Fragment>
+      
+    <Hyperlink
+      destination="homeUrl"
+      isInline={true}
+    >
+      Go to course content.
+    </Hyperlink>
+  </Fragment>
 </Banner>
 `;
 

@@ -13,6 +13,7 @@ jest.mock('./components/CourseCardImage', () => 'CourseCardImage');
 jest.mock('./components/CourseCardMenu', () => 'CourseCardMenu');
 jest.mock('./components/CourseCardActions', () => 'CourseCardActions');
 jest.mock('./components/CourseCardDetails', () => 'CourseCardDetails');
+jest.mock('./components/CourseCardProgress', () => 'CourseCardProgress');
 jest.mock('./components/CourseCardTitle', () => 'CourseCardTitle');
 
 const cardId = 'test-card-id';

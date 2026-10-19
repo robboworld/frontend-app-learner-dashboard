@@ -4,6 +4,7 @@ import { reduxHooks } from 'hooks';
 
 import SelectSessionModal from 'containers/SelectSessionModal';
 import CoursesPanel from 'containers/CoursesPanel';
+import RobboCardPreview from 'containers/RobboCardPreview';
 
 import DashboardLayout from './DashboardLayout';
 import LoadingView from './LoadingView';
@@ -21,6 +22,7 @@ jest.mock('hooks', () => ({
 
 jest.mock('plugin-slots/DashboardModalSlot', () => 'DashboardModalSlot');
 jest.mock('containers/CoursesPanel', () => 'CoursesPanel');
+jest.mock('containers/RobboCardPreview', () => 'RobboCardPreview');
 jest.mock('./LoadingView', () => 'LoadingView');
 jest.mock('./DashboardLayout', () => 'DashboardLayout');
 
@@ -117,7 +119,8 @@ describe('Dashboard', () => {
           showSelectSessionModal: true,
         },
         content: ['LoadedView', (
-          <DashboardLayout><CoursesPanel /></DashboardLayout>
+          // Robbo: the course team card preview sits above the course list (ff92de7).
+          <DashboardLayout><RobboCardPreview /><CoursesPanel /></DashboardLayout>
         )],
         showSelectSessionModal: true,
       });
@@ -132,7 +135,8 @@ describe('Dashboard', () => {
           showSelectSessionModal: false,
         },
         content: ['Dashboard layout with no courses sidebar and content', (
-          <DashboardLayout><CoursesPanel /></DashboardLayout>
+          // Robbo: the course team card preview sits above the course list (ff92de7).
+          <DashboardLayout><RobboCardPreview /><CoursesPanel /></DashboardLayout>
         )],
         showSelectSessionModal: false,
       });

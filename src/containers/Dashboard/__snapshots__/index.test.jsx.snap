@@ -19,6 +19,7 @@ exports[`Dashboard snapshots courses loaded, show select session modal snapshot 
     id="dashboard-content"
   >
     <DashboardLayout>
+      <RobboCardPreview />
       <CoursesPanel />
     </DashboardLayout>
   </div>
@@ -81,6 +82,7 @@ exports[`Dashboard snapshots there are no courses snapshot 1`] = `
     id="dashboard-content"
   >
     <DashboardLayout>
+      <RobboCardPreview />
       <CoursesPanel />
     </DashboardLayout>
   </div>

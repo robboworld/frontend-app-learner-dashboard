@@ -1,3 +1,4 @@
+import React from 'react';
 import { shallow } from '@edx/react-unit-test-utils';
 
 import { reduxHooks } from 'hooks';
@@ -32,6 +33,8 @@ describe('CourseCardImage', () => {
   };
   beforeEach(() => {
     jest.clearAllMocks();
+    // Robbo: the image keeps a placeholder flag in state (e379fdc); setupTest mocks useState.
+    React.useState.mockImplementation((val) => [val, jest.fn().mockName('setUsePlaceholder')]);
   });
   describe('snapshot', () => {
     test('renders clickable link course Image', () => {

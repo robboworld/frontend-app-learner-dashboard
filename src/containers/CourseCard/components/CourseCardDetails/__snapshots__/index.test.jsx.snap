@@ -7,7 +7,8 @@ exports[`CourseCard Details component does not have change session button on reg
     data-testid="CourseCardDetails"
   >
     resume-message
-     • access-message
+     • 
+    access-message
   </span>
 </div>
 `;
@@ -19,7 +20,8 @@ exports[`CourseCard Details component has change session button on entitlement c
     data-testid="CourseCardDetails"
   >
     resume-message
-     • access-message
+     • 
+    access-message
      • 
     <button
       class="m-0 p-0"

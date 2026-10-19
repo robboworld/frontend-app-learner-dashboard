@@ -1,12 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CourseCardTitle snapshot renders non-clickable course title 1`] = `
-<h3>
-  <span
-    className="course-card-title"
-    data-testid="CourseCardTitle"
-  >
-    course-name
-  </span>
-</h3>
+<div
+  className="course-card-title-wrap"
+>
+  <CourseCardStatus
+    cardId="cardId"
+  />
+  <h3>
+    <span
+      className="course-card-title"
+      data-testid="CourseCardTitle"
+    >
+      course-name
+    </span>
+  </h3>
+</div>
 `;

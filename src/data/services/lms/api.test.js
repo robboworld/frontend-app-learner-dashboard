@@ -43,8 +43,20 @@ describe('lms api methods', () => {
         [apiKeys.user]: testUser,
       };
       expect(api.initializeList(userArg)).toEqual(
-        utils.get(utils.stringifyUrl(urls.getInitApiUrl(), userArg)),
+        // Robbo: the course team card preview key from the page url (ff92de7); null is skipped.
+        utils.get(utils.stringifyUrl(urls.getInitApiUrl(), { ...userArg, [apiKeys.robboCardPreview]: null })),
       );
+    });
+    test('passes the course team card preview key from the page url', () => {
+      const previewKey = 'course-v1:Test+Course+Run';
+      window.history.pushState({}, '', `/?${apiKeys.robboCardPreview}=${encodeURIComponent(previewKey)}`);
+      expect(api.initializeList({ [apiKeys.user]: testUser })).toEqual(
+        utils.get(utils.stringifyUrl(urls.getInitApiUrl(), {
+          [apiKeys.user]: testUser,
+          [apiKeys.robboCardPreview]: previewKey,
+        })),
+      );
+      window.history.pushState({}, '', '/');
     });
   });
   describe('updateEntitlementEnrollment', () => {

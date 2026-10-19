@@ -33,7 +33,11 @@ exports[`CourseCard component snapshot: collapsed 1`] = `
         </div>
         <Card.Body>
           <Card.Header
-            actions={null}
+            actions={
+              <CourseCardMenu
+                cardId="test-card-id"
+              />
+            }
             title={
               <CourseCardTitle
                 cardId="test-card-id"
@@ -46,29 +50,34 @@ exports[`CourseCard component snapshot: collapsed 1`] = `
             <CourseCardDetails
               cardId="test-card-id"
             />
-          </Card.Section>
-          <Card.Footer
-            orientation="vertical"
-          >
-            <CourseCardActions
+            <CourseCardProgress
               cardId="test-card-id"
             />
+          </Card.Section>
+          <Card.Footer
+            className="course-card-footer"
+            orientation="vertical"
+          >
+            <div
+              className="course-card-footer__row"
+            >
+              <div
+                className="course-card-footer__info"
+              >
+                <CourseCardBanners
+                  cardId="test-card-id"
+                />
+              </div>
+              <div
+                className="course-card-footer__actions"
+              >
+                <CourseCardActions
+                  cardId="test-card-id"
+                />
+              </div>
+            </div>
           </Card.Footer>
         </Card.Body>
-      </div>
-      <div
-        className="course-card-banners-wrap course-card-banners-wrap--stacked"
-      >
-        <CourseCardBanners
-          cardId="test-card-id"
-        />
-        <div
-          className="course-card-banners__actions"
-        >
-          <CourseCardMenu
-            cardId="test-card-id"
-          />
-        </div>
       </div>
     </div>
   </Card>
@@ -113,22 +122,34 @@ exports[`CourseCard component snapshot: not collapsed 1`] = `
             <CourseCardDetails
               cardId="test-card-id"
             />
-          </Card.Section>
-          <Card.Footer
-            orientation="horizontal"
-          >
-            <CourseCardActions
+            <CourseCardProgress
               cardId="test-card-id"
             />
+          </Card.Section>
+          <Card.Footer
+            className="course-card-footer"
+            orientation="horizontal"
+          >
+            <div
+              className="course-card-footer__row"
+            >
+              <div
+                className="course-card-footer__info"
+              >
+                <CourseCardBanners
+                  cardId="test-card-id"
+                />
+              </div>
+              <div
+                className="course-card-footer__actions"
+              >
+                <CourseCardActions
+                  cardId="test-card-id"
+                />
+              </div>
+            </div>
           </Card.Footer>
         </Card.Body>
-      </div>
-      <div
-        className="course-card-banners-wrap"
-      >
-        <CourseCardBanners
-          cardId="test-card-id"
-        />
       </div>
     </div>
   </Card>

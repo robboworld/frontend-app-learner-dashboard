@@ -40,7 +40,20 @@ exports[`CourseList no courses or filters snapshot 1`] = `
 </Fragment>
 `;
 
-exports[`CourseList with filters snapshot 1`] = `undefined`;
+exports[`CourseList with filters snapshot 1`] = `
+<Fragment>
+  <div
+    id="course-list-active-filters-container"
+  >
+    <ActiveCourseFilters
+      abitary="filter"
+    />
+  </div>
+  <div
+    className="d-flex flex-column flex-grow-1"
+  />
+</Fragment>
+`;
 
 exports[`CourseList with multiple courses and pages snapshot 1`] = `
 <Fragment>

@@ -2,33 +2,35 @@
 
 exports[`ConfirmEmailBanner snapshot Show on unverified 1`] = `
 <Fragment>
-  <PageBanner
-    dismissible={true}
-    onDismiss={[MockFunction closePageBanner]}
-    show={[MockFunction showPageBanner]}
+  <div
+    className="confirm-email-page-banner"
   >
-    <format-message-function
-      message={
-        {
-          "defaultMessage": "Remember to confirm your email so that you can keep learning! {confirmNowButton}.",
-          "description": "Text for reminding user to confirm email",
-          "id": "leanerDashboard.confirmEmailTextReminderBanner",
-        }
-      }
-      values={
-        {
-          "confirmNowButton": <Button
-            className="confirm-email-now-button"
-            onClick={[MockFunction openConfirmModalButtonClick]}
-            size="inline"
-            variant="link"
-          >
-            Confirm Now
-          </Button>,
-        }
-      }
-    />
-  </PageBanner>
+    <PageBanner
+      dismissible={true}
+      onDismiss={[MockFunction closePageBanner]}
+      show={[MockFunction showPageBanner]}
+    >
+      <span
+        className="confirm-email-banner-content"
+      >
+        Remember to confirm your email address so you can continue learning!
+         
+        <Button
+          className="confirm-email-now-button"
+          onClick={[MockFunction openConfirmModalButtonClick]}
+          size="inline"
+          variant="link"
+        >
+          Confirm now
+        </Button>
+        <span
+          className="confirm-email-banner-suffix"
+        >
+          . If you do not see the message in your inbox, check your spam folder.
+        </span>
+      </span>
+    </PageBanner>
+  </div>
   <MarketingModal
     footerNode={
       <Button

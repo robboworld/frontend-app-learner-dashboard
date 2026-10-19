@@ -21,11 +21,6 @@ jest.mock('components/Banner', () => 'Banner');
 
 describe('CertificateBanner', () => {
   const props = { cardId: 'cardId' };
-  reduxHooks.useCardCourseRunData.mockReturnValue({
-    minPassingGrade: 0.8,
-    progressUrl: 'progressUrl',
-    homeUrl: 'homeUrl',
-  });
 
   const defaultCertificate = {
     availableDate: '10/20/3030',
@@ -37,7 +32,13 @@ describe('CertificateBanner', () => {
     isAudit: false,
     isVerified: false,
   };
-  const defaultCourseRun = { isArchived: false };
+  // Robbo: the banner reads the course run once (a91632e), so its once-mocked value carries all fields.
+  const defaultCourseRun = {
+    isArchived: false,
+    minPassingGrade: 0.8,
+    progressUrl: 'progressUrl',
+    homeUrl: 'homeUrl',
+  };
   const defaultGrade = { isPassing: false };
   const defaultPlatformSettings = {};
   const createWrapper = ({

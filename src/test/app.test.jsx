@@ -82,6 +82,14 @@ jest.mock('utils/hooks', () => {
 });
 
 
+// Robbo: RobboHeader follows a narrow-viewport media query (src/robbo-layout); jsdom has no matchMedia.
+window.matchMedia = window.matchMedia || ((query) => ({
+  matches: false,
+  media: query,
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
+}));
+
 const configureStore = () => redux.createStore(
   reducers,
 );
@@ -257,9 +265,11 @@ describe('ESG app integration tests', () => {
             expect(enrollment.isAudit).toEqual(true);
             expect(courseRun.isStarted).toEqual(false);
             expect(enrollment.canUpgrade).toEqual(true);
+            // Robbo: the meta line drops provider and course number (ca63a55).
+            [courseProvider.name, course.courseNumber].forEach(
+              value => expect(cardDetails).not.toHaveTextContent(value),
+            );
             [
-              courseProvider.name,
-              course.courseNumber,
               appMessages.withValues.CourseCardDetails.courseStarts({
                 startDate: formatDate(new Date(courseRun.startDate)),
               }),

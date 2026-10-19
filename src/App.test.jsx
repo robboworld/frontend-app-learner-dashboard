@@ -19,6 +19,7 @@ import { App } from './App';
 import messages from './messages';
 
 jest.mock('robbo-layout', () => ({ RobboFooter: 'RobboFooter' }));
+jest.mock('robbo-errors', () => ({ RobboErrorNotice: 'RobboErrorNotice' }));
 
 jest.mock('containers/Dashboard', () => 'Dashboard');
 jest.mock('containers/LearnerDashboardHeader', () => 'LearnerDashboardHeader');
@@ -133,15 +134,13 @@ describe('App router component', () => {
         el = shallow(<App />);
       });
       runBasicTests();
-      it('loads error page', () => {
+      // Robbo: the failure with its code and number (src/robbo-errors) instead of ErrorPage.
+      it('loads error notice', () => {
         const main = el.instance.findByType('main')[0];
         expect(main.children.length).toEqual(1);
-        const alert = main.children[0];
-        expect(alert.type).toEqual('Alert');
-        expect(alert.children.length).toEqual(1);
-        const errorPage = alert.children[0];
-        expect(errorPage.type).toEqual('ErrorPage');
-        expect(errorPage.props.message).toEqual(formatMessage(messages.errorMessage, { supportEmail }));
+        const notice = main.children[0];
+        expect(notice.type).toEqual('RobboErrorNotice');
+        expect(notice.props.error).toEqual(httpFailure);
       });
     });
     describe('refresh failure', () => {
@@ -154,15 +153,13 @@ describe('App router component', () => {
         el = shallow(<App />);
       });
       runBasicTests();
-      it('loads error page', () => {
+      // Robbo: the failure with its code and number (src/robbo-errors) instead of ErrorPage.
+      it('loads error notice', () => {
         const main = el.instance.findByType('main')[0];
         expect(main.children.length).toEqual(1);
-        const alert = main.children[0];
-        expect(alert.type).toEqual('Alert');
-        expect(alert.children.length).toEqual(1);
-        const errorPage = alert.children[0];
-        expect(errorPage.type).toEqual('ErrorPage');
-        expect(errorPage.props.message).toEqual(formatMessage(messages.errorMessage, { supportEmail }));
+        const notice = main.children[0];
+        expect(notice.type).toEqual('RobboErrorNotice');
+        expect(notice.props.error).toEqual(httpFailure);
       });
     });
     describe('initialize network abort (no HTTP response)', () => {
@@ -172,7 +169,7 @@ describe('App router component', () => {
         getConfig.mockReturnValue({});
         el = shallow(<App />);
       });
-      it('still loads dashboard instead of ErrorPage', () => {
+      it('still loads dashboard instead of the error notice', () => {
         const main = el.instance.findByType('main')[0];
         expect(main.children[0].type).toEqual('Dashboard');
       });

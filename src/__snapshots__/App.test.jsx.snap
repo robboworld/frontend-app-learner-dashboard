@@ -22,13 +22,15 @@ exports[`App router component component initialize failure snapshot 1`] = `
       <main
         id="main"
       >
-        <Alert
-          variant="danger"
-        >
-          <ErrorPage
-            message="If you experience repeated failures, please email support at test-support-url"
-          />
-        </Alert>
+        <RobboErrorNotice
+          error={
+            {
+              "response": {
+                "status": 500,
+              },
+            }
+          }
+        />
       </main>
     </AppWrapper>
     <RobboFooter />
@@ -148,13 +150,15 @@ exports[`App router component component refresh failure snapshot 1`] = `
       <main
         id="main"
       >
-        <Alert
-          variant="danger"
-        >
-          <ErrorPage
-            message="If you experience repeated failures, please email support at test-support-url"
-          />
-        </Alert>
+        <RobboErrorNotice
+          error={
+            {
+              "response": {
+                "status": 500,
+              },
+            }
+          }
+        />
       </main>
     </AppWrapper>
     <RobboFooter />

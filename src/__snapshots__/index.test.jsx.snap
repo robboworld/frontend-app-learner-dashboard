@@ -2,8 +2,13 @@
 
 exports[`app registry subscribe: APP_INIT_ERROR.  snapshot: displays an ErrorPage to root element 1`] = `
 <UNDEFINED>
-  <ErrorPage
-    message="test-error-message"
+  <RobboErrorPage
+    error={
+      {
+        "message": "test-error-message",
+      }
+    }
+    startup={true}
   />
 </UNDEFINED>
 `;
@@ -17,27 +22,29 @@ exports[`app registry subscribe: APP_READY.  links App to root element 1`] = `
       }
     }
   >
-    <NoticesWrapper>
-      <Routes>
-        <Route
-          element={
-            <PageWrap>
-              <App />
-            </PageWrap>
-          }
-          path="/"
-        />
-        <Route
-          element={
-            <Navigate
-              replace={true}
-              to="/"
-            />
-          }
-          path="*"
-        />
-      </Routes>
-    </NoticesWrapper>
+    <RobboErrorBoundary>
+      <NoticesWrapper>
+        <Routes>
+          <Route
+            element={
+              <PageWrap>
+                <App />
+              </PageWrap>
+            }
+            path="/"
+          />
+          <Route
+            element={
+              <Navigate
+                replace={true}
+                to="/"
+              />
+            }
+            path="*"
+          />
+        </Routes>
+      </NoticesWrapper>
+    </RobboErrorBoundary>
   </AppProvider>
 </UNDEFINED>
 `;

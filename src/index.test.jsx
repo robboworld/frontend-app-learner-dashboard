@@ -7,6 +7,7 @@ import {
 } from '@edx/frontend-platform';
 
 import { configuration } from './config';
+import { initRobboErrors } from './robbo-errors';
 import * as app from '.';
 
 // These need to be var not let so they get hoisted
@@ -27,6 +28,7 @@ jest.mock('react-dom/client', () => {
 jest.mock('@edx/frontend-platform', () => ({
   mergeConfig: jest.fn(),
   ensureConfig: jest.fn(),
+  getConfig: () => ({}), // Yandex Metrika (index.jsx) reads it on APP_READY
   APP_READY: 'app-is-ready-key',
   APP_INIT_ERROR: 'app-init-error',
   initialize: jest.fn(),
@@ -36,6 +38,14 @@ jest.mock('@edx/frontend-platform', () => ({
 jest.mock('data/store', () => ({ redux: 'store' }));
 jest.mock('./App', () => 'App');
 jest.mock('components/NoticesWrapper', () => 'NoticesWrapper');
+// Robbo: src/robbo-errors has its own tests; here only its wiring is checked (the real initRobboErrors
+// would add its own APP_READY subscriber and shift subscribe.mock.calls).
+jest.mock('./robbo-errors', () => ({
+  initRobboErrors: jest.fn(),
+  RobboErrorBoundary: 'RobboErrorBoundary',
+  RobboErrorPage: 'RobboErrorPage',
+  robboErrorsMiddleware: 'robboErrorsMiddleware',
+}));
 
 describe('app registry', () => {
   let getElement;
@@ -62,7 +72,8 @@ describe('app registry', () => {
     const callArgs = subscribe.mock.calls[1];
     expect(callArgs[0]).toEqual(APP_INIT_ERROR);
     const error = { message: 'test-error-message' };
-    callArgs[1](error);
+    // Robbo: PubSub calls back with (topic, data), the error is the second argument.
+    callArgs[1](APP_INIT_ERROR, error);
     const [rendered] = mockRender.mock.calls[0];
     expect(rendered).toMatchSnapshot();
   });
@@ -70,6 +81,10 @@ describe('app registry', () => {
     expect(initialize).toHaveBeenCalledTimes(1);
     const initializeArg = initialize.mock.calls[0][0];
     expect(initializeArg.requireAuthenticatedUser).toEqual(true);
+  });
+  test('Robbo: human-readable errors, axios errors through robboErrorsMiddleware', () => {
+    expect(initRobboErrors).toHaveBeenCalledWith({ app: 'learner-dashboard' });
+    expect(initialize.mock.calls[0][0].authMiddleware).toEqual(['robboErrorsMiddleware']);
   });
   test('initialize config', () => {
     const initializeArg = initialize.mock.calls[0][0];

@@ -10,7 +10,6 @@ import {
 
 import {
   AppProvider,
-  ErrorPage,
   PageWrap,
 } from '@edx/frontend-platform/react';
 import store from 'data/store';
@@ -26,6 +25,9 @@ import {
 import { configuration } from './config';
 
 import messages from './i18n';
+import {
+  initRobboErrors, RobboErrorBoundary, RobboErrorPage, robboErrorsMiddleware,
+} from './robbo-errors';
 
 import App from './App';
 import NoticesWrapper from './components/NoticesWrapper';
@@ -71,6 +73,9 @@ const initYandexMetrika = () => {
   });
 };
 
+// Robbo: human-readable errors with a code and number (src/robbo-errors).
+initRobboErrors({ app: 'learner-dashboard' });
+
 subscribe(APP_READY, () => {
   initYandexMetrika();
   const root = createRoot(document.getElementById('root'));
@@ -78,23 +83,26 @@ subscribe(APP_READY, () => {
   root.render(
     <StrictMode>
       <AppProvider store={store}>
-        <NoticesWrapper>
-          <Routes>
-            <Route path="/" element={<PageWrap><App /></PageWrap>} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </NoticesWrapper>
+        <RobboErrorBoundary>
+          <NoticesWrapper>
+            <Routes>
+              <Route path="/" element={<PageWrap><App /></PageWrap>} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </NoticesWrapper>
+        </RobboErrorBoundary>
       </AppProvider>
     </StrictMode>,
   );
 });
 
-subscribe(APP_INIT_ERROR, (error) => {
+// PubSub calls back with (topic, data): the error is the second argument.
+subscribe(APP_INIT_ERROR, (message, error) => {
   const root = createRoot(document.getElementById('root'));
 
   root.render(
     <StrictMode>
-      <ErrorPage message={error.message} />
+      <RobboErrorPage error={error} startup />
     </StrictMode>,
   );
 });
@@ -102,6 +110,7 @@ subscribe(APP_INIT_ERROR, (error) => {
 export const appName = 'LearnerHomeAppConfig';
 
 initialize({
+  authMiddleware: [robboErrorsMiddleware],
   handlers: {
     config: () => {
       mergeConfig(configuration, appName);

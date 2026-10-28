@@ -18,6 +18,7 @@ import './index.scss';
 import fasieLogo from './fasie-logo.png';
 import { getRobboLkHeaderNavItem, useRobboAccountActive } from './lkNav';
 import RobboLkLockedItem from './lkLockedItem';
+import RobboNavIcon from './navIcon';
 
 const MOBILE_COLLAPSE_NAV_QUERY = '(max-width: 767.98px)';
 
@@ -194,6 +195,7 @@ export const RobboHeader = ({
               onClick={item.onClick}
               aria-current={activeSection === item.section ? 'page' : undefined}
             >
+              <RobboNavIcon section={item.section} />
               <FormattedMessage id={item.messageId} />
             </a>
           )))}
